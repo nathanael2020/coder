@@ -4,6 +4,7 @@ import os
 import traceback
 
 from utils.logger import setup_logging
+
 logger = setup_logging()
 
 load_dotenv()

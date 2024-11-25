@@ -9,10 +9,10 @@ from utils.logger import setup_logging
 import json
 import os
 import traceback
+from utils.config import logger
 
 # Main Interaction Loop
 def main():
-    logger = setup_logging()
     logger.info("Starting Interactive Code Assistant")
 
     code_mapper = CodeMapper(root_directory=".")  # Map the entire current project

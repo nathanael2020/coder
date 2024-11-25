@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Generator Interface</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/editor/editor.main.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/8.4.0/gridstack.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .grid-stack {
+            background: #f0f0f0;
+            position: fixed !important;
+            width: 100vw !important;
+            height: 100vh !important;
+        }
+
+        .grid-stack-item-content {
+            inset: 4px;  /* Smaller gap between items */
+        }
+
+        .section {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;  /* Prevent content overflow */
+        }
+
+        .section-header {
+            padding: 8px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            cursor: move;
+            flex-shrink: 0;  /* Prevent header from shrinking */
+        }
+
+        .drag-handle {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            background-image: radial-gradient(circle, #999 1px, transparent 1px);
+            background-size: 4px 4px;
+            background-position: center;
+            cursor: move;
+        }
+
+        .editor-container {
+            flex: 1;
+            min-height: 0;  /* Allow container to shrink */
+            position: relative;
+        }
+
+        .control-panel {
+            padding: 8px;
+            background: #f8f9fa;
+            border-top: 1px solid #ddd;
+            flex-shrink: 0;  /* Prevent control panel from shrinking */
+        }
+
+        .output {
+            flex: 1;
+            overflow: auto;
+            padding: 8px;
+            white-space: pre-wrap;
+            font-family: monospace;
+            min-height: 0;  /* Allow output to shrink */
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 1rem;
+            flex: 1;
+        }
+
+        /* Ensure buttons don't get too small */
+        button {
+            padding: 6px 12px;
+            margin: 2px;
+            white-space: nowrap;
+        }
+
+        /* Make timeout controls more compact */
+        .timeout-control {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .timeout-control input[type="number"] {
+            width: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-stack">
+        <div class="grid-stack-item" gs-w="4" gs-h="4">
+            <div class="grid-stack-item-content">
+                <div class="section command-section">
+                    <div class="section-header">
+                        <span class="drag-handle"></span>
+                        <h2>Command Input</h2>
+                    </div>
+                    <div id="commandEditor" class="editor-container"></div>
+                    <div class="control-panel">
+                        <button onclick="generateCode()">Generate</button>
+                        <button onclick="modifyCode()">Modify</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-stack-item" gs-w="4" gs-h="4">
+            <div class="grid-stack-item-content">
+                <div class="section code-section">
+                    <div class="section-header">
+                        <span class="drag-handle"></span>
+                        <h2>Code Editor</h2>
+                    </div>
+                    <div id="codeEditor" class="editor-container"></div>
+                    <div class="control-panel">
+                        <button onclick="executeCode()">Execute</button>
+                        <div class="timeout-control">
+                            <label for="timeout">Timeout:</label>
+                            <input type="number" id="timeout" min="0" value="10" step="1">
+                            <select id="timeoutUnit">
+                                <option value="1">seconds</option>
+                                <option value="60">minutes</option>
+                            </select>
+                            <label>
+                                <input type="checkbox" id="noTimeout"> No timeout
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid-stack-item" gs-w="4" gs-h="4">
+            <div class="grid-stack-item-content">
+                <div class="section output-section">
+                    <div class="section-header">
+                        <span class="drag-handle"></span>
+                        <h2>Output</h2>
+                    </div>
+                    <div id="outputArea" class="output"></div>
+                    <div class="control-panel">
+                        <button class="copy-button" onclick="copyToClipboard('outputArea')">Copy Output 📋</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/8.4.0/gridstack-all.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.js"></script>
+    <script>
+        let commandEditor, codeEditor;
+
+        require.config({ paths: { vs: 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs' }});
+        require(['vs/editor/editor.main'], function() {
+            commandEditor = monaco.editor.create(document.getElementById('commandEditor'), {
+                value: '# Enter your command here...',
+                language: 'markdown',
+                theme: 'vs',
+                minimap: { enabled: false }
+            });
+
+            codeEditor = monaco.editor.create(document.getElementById('codeEditor'), {
+                value: '# Your code will appear here...',
+                language: 'python',
+                theme: 'vs',
+                minimap: { enabled: false }
+            });
+
+            window.addEventListener('resize', function() {
+                commandEditor.layout();
+                codeEditor.layout();
+            });
+        });
+
+        async function generateCode() {
+            const response = await fetch('/generate/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ request: commandEditor.getValue() })
+            });
+            const data = await response.json();
+            if (data.code) {
+                codeEditor.setValue(data.code);
+            }
+            document.getElementById('outputArea').innerText = JSON.stringify(data, null, 2);
+        }
+
+        async function executeCode() {
+            const timeout = document.getElementById('noTimeout').checked ? 
+                null : 
+                parseInt(document.getElementById('timeout').value) * 
+                parseInt(document.getElementById('timeoutUnit').value);
+
+            const response = await fetch('/execute/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    code: codeEditor.getValue(),
+                    timeout: timeout
+                })
+            });
+            const data = await response.json();
+            document.getElementById('outputArea').innerText = formatExecutionResult(data);
+        }
+
+        async function modifyCode() {
+            const response = await fetch('/modify/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    code: codeEditor.getValue(),
+                    modification: commandEditor.getValue()
+                })
+            });
+            const data = await response.json();
+            if (data.modified_code) {
+                codeEditor.setValue(data.modified_code);
+            }
+            document.getElementById('outputArea').innerText = JSON.stringify(data, null, 2);
+        }
+
+        function formatExecutionResult(data) {
+            let output = '';
+            if (data.output) {
+                output += `Output:\n${data.output}\n\n`;
+            }
+            if (data.logs) {
+                output += 'Logs:\n' + data.logs.map(log => 
+                    `${new Date(log.timestamp * 1000).toISOString()} - ${log.level} - ${log.message}`
+                ).join('\n') + '\n\n';
+            }
+            if (data.error) {
+                output += `Error:\n${JSON.stringify(data.error, null, 2)}\n\n`;
+            }
+            if (data.debug_plan) {
+                output += `Debug Plan:\n${JSON.stringify(data.debug_plan, null, 2)}\n\n`;
+            }
+            return output;
+        }
+
+        function copyToClipboard(elementId) {
+            const content = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(content).then(() => {
+                showToast('Copied to clipboard');
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                showToast('Failed to copy to clipboard');
+            });
+        }
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                right: 20px;
+                background-color: #333;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 5px;
+                z-index: 1000;
+                opacity: 0;
+                transition: opacity 0.3s ease-in-out;
+            `;
+            toast.innerText = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.style.opacity = '1', 10);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => document.body.removeChild(toast), 300);
+            }, 2000);
+        }
+
+        // Initialize timeout control
+        document.addEventListener('DOMContentLoaded', function() {
+            const timeoutInput = document.getElementById('timeout');
+            const noTimeoutCheckbox = document.getElementById('noTimeout');
+            
+            noTimeoutCheckbox.addEventListener('change', function() {
+                timeoutInput.disabled = this.checked;
+                document.getElementById('timeoutUnit').disabled = this.checked;
+            });
+        });
+
+        // Initialize GridStack with constrained settings
+        var grid = GridStack.init({
+            float: true,
+            column: 12,
+            cellHeight: window.innerHeight / 12,  // Divide viewport height into 12 rows
+            minRow: 1,
+            maxRow: 12,  // Match the column count
+            draggable: {
+                handle: '.section-header',
+                scroll: false  // Prevent scrolling while dragging
+            },
+            resizable: {
+                handles: 'all',
+                scroll: false  // Prevent scrolling while resizing
+            },
+            disableOneColumnMode: true,  // Prevent single-column mode on narrow screens
+            margin: 4  // Smaller gap between items
+        });
+
+        // Update grid height on window resize
+        window.addEventListener('resize', function() {
+            grid.cellHeight(window.innerHeight / 12);
+            if (commandEditor) commandEditor.layout();
+            if (codeEditor) codeEditor.layout();
+        });
+
+        // Update editor layouts when grid changes
+        grid.on('change', function() {
+            if (commandEditor) commandEditor.layout();
+            if (codeEditor) codeEditor.layout();
+        });
+
+        // Update editor layouts on window resize
+        window.addEventListener('resize', function() {
+            if (commandEditor) commandEditor.layout();
+            if (codeEditor) codeEditor.layout();
+        });
+    </script>
+</body>
+</html>
