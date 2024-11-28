@@ -1,4 +1,21 @@
-# import subprocess
+"""
+version_control.py
+
+This module contains the VersionControl class, which is responsible for managing Git operations such as creating branches, committing changes, and merging branches.
+
+"""
+
+# Filestructure:
+# coder_v2/
+#   main.py
+#   static/
+#   logs/
+#   utils/
+#   core/
+
+# File: core/version_control.py
+
+import subprocess
 
 class VersionControl:
     def create_branch(self, branch_name):

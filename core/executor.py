@@ -1,3 +1,20 @@
+"""
+executor.py
+
+This module contains the executor functions for the API. It includes the execute_code function to execute code in a controlled environment with configurable timeout, and the execute_solution function to execute the solutions proposed in the debug plan.
+
+"""
+
+# Filestructure:
+# coder_v2/
+#   main.py
+#   static/
+#   logs/
+#   utils/
+#   core/
+
+# File: core/executor.py
+
 import subprocess
 import os
 import platform
@@ -10,14 +27,61 @@ import traceback
 from core.debugger import get_debug_plan
 import re
 
-def execute_code_in_docker():
-    """Use Docker to execute the code safely."""
-    os.system("docker build -t sandbox-executor .")
-    os.system("docker run --rm sandbox-executor")
+# def execute_code_in_docker():
+#     """Use Docker to execute the code safely in an isolated container.
+    
+#     This function builds and runs a Docker container to execute code in a sandboxed
+#     environment, providing an additional layer of security and isolation.
+    
+#     Returns:
+#         None
+    
+#     Note:
+#         Requires Docker to be installed and running on the system.
+#         The Dockerfile should be present in the current directory.
+#     """
+#     os.system("docker build -t sandbox-executor .")
+#     os.system("docker run --rm sandbox-executor")
 
 
 def execute_code(code, timeout=10):
-    """Execute code in a controlled environment with configurable timeout."""
+    """Execute Python code in a controlled environment with configurable timeout.
+    
+    This function executes the provided code in a sandbox directory with safety measures
+    and timeout constraints. It captures both stdout and stderr, along with detailed
+    error information if execution fails.
+    
+    Args:
+        code (str): The Python code to execute.
+        timeout (int, optional): Maximum execution time in seconds. Defaults to 10.
+            Set to None for no timeout.
+    
+    Returns:
+        dict: A dictionary containing execution results with the following structure:
+            On success:
+                {
+                    "success": True,
+                    "output": str  # Standard output from the code execution
+                }
+            On failure:
+                {
+                    "success": False,
+                    "error": {
+                        "error": str,  # Error message
+                        "error_type": str,  # Type of error (runtime_error/timeout_error)
+                        "system_info": {  # System information for debugging
+                            "os": str,
+                            "python_version": str,
+                            "working_directory": str
+                        },
+                        "traceback": str  # Full error traceback
+                    }
+                }
+    
+    Raises:
+        OSError: If sandbox directory creation fails.
+        IOError: If writing to sandbox file fails.
+    """
     logger.info("Starting code execution")
     
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -73,7 +137,48 @@ def execute_code(code, timeout=10):
 
 
 async def execute_solution(debug_plan, original_code):
-    """Execute the solutions proposed in the debug plan."""
+    """Execute the solutions proposed in the debug plan, particularly handling package installations.
+    
+    This asynchronous function processes the debug plan and executes necessary actions,
+    currently focusing on package installation for missing dependencies. It includes
+    smart handling of package name corrections and multiple installation attempts.
+    
+    Args:
+        debug_plan (dict): A dictionary containing the debug plan with the following structure:
+            {
+                "error_type": str,  # Type of error (e.g., "missing_package")
+                "action_required": str,  # Required action (e.g., "package_install")
+                "missing_module": str  # Name of the missing package
+            }
+        original_code (str): The original code that generated the error (currently unused).
+    
+    Returns:
+        dict: A dictionary containing the execution results with the following structure:
+            On successful package installation:
+                {
+                    "success": True,
+                    "action": "package_installed",
+                    "package": str,  # Installed package name
+                    "original_name": str  # Original package name before correction
+                }
+            On failed package installation:
+                {
+                    "success": False,
+                    "error": str,  # Error message
+                    "action": "package_install_failed",
+                    "package": str,  # Package name
+                    "error_output": str  # Detailed error output
+                }
+            On no matching solution:
+                {
+                    "success": False,
+                    "message": "No matching solution found"
+                }
+    
+    Note:
+        Currently only handles package installation errors. Future versions may
+        handle additional types of debugging actions.
+    """
     logger.info("Starting solution execution")
 
     if not debug_plan:

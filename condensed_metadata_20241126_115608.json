@@ -1,0 +1,622 @@
+{
+  "project_summary": {
+    "name": "coder_v2",
+    "description": "Metadata for the project.",
+    "entry_points": [
+      "condense_metadata",
+      "strftime",
+      "main",
+      "write",
+      "print",
+      "map_codebase",
+      "now",
+      "iterative_codebase_description",
+      "dump",
+      "CodeMapper",
+      "get_code_map",
+      "get_chunks",
+      "save_metadata_to_file",
+      "dumps",
+      "open",
+      "map_directory_structure_with_cross_references"
+    ],
+    "dependencies": [
+      "datetime",
+      "core.debugger",
+      "argparse",
+      "utils.search",
+      "utils.index",
+      "logging",
+      "shutil",
+      "fastapi.staticfiles",
+      "traceback",
+      "core.executor",
+      "git",
+      "dataclasses",
+      "core.enhanced_debugger",
+      "dotenv",
+      "json",
+      "core.version_control",
+      "core.generator",
+      "core.code_mapper",
+      "fastapi.middleware.cors",
+      "numpy",
+      "utils.config",
+      "ast",
+      "re",
+      "sys",
+      "utils.embeddings",
+      "pathlib",
+      "tempfile",
+      "logging.handlers",
+      "core.modifier",
+      "custom_mapper",
+      "pydantic",
+      "pytest",
+      "fastapi.responses",
+      "fastapi",
+      "core.codebase_routes",
+      "core.codebase_manager",
+      "docker",
+      "subprocess",
+      "faiss",
+      "platform",
+      "time",
+      "utils.logger",
+      "typing",
+      "openai",
+      "hashlib",
+      "os",
+      "utils.sanitizer"
+    ]
+  },
+  "index": {
+    "files": {
+      "run_console.py": {
+        "description": "run_console.py\n\nThis module contains a console version of the API. It includes a main function to handle user requests and interact with the code generation, execution, and modification processes.\nThe console version provides a simple text-based interface for users to generate, run, and modify code interactively.\nIt is an alternative to the FastAPI version of the API."
+      },
+      "conftest.py": {
+        "description": ""
+      },
+      "custom_mapper2.py": {
+        "description": ""
+      },
+      "__init__.py": {
+        "description": ""
+      },
+      "custom_mapper.py": {
+        "description": ""
+      },
+      "main.py": {
+        "description": "main.py\n\nThis module is the entry point for the API. It defines the FastAPI app and the endpoints \nfor code generation, execution, and modification. Importantly, it also initializes the \ncode mapper, debugger, version control, and other core components.\n\nIt is an alternative to run_console.py, providing a REST API for the API.\n\nComponents:\n    - FastAPI app initialization and middleware setup\n    - Static file serving\n    - Core service initialization (CodeMapper, EnhancedDebugger, VersionControl)\n    - Data models for requests/responses\n    - API endpoints for code generation, execution and modification"
+      },
+      "core/code_mapper.py": {
+        "description": "code_mapper.py\n\nThis module contains the CodeMapper class, which is responsible for mapping the codebase into functions, classes, and dependencies,\nas well as facilitating NLP and LLM-driven code interactions."
+      },
+      "core/tester.py": {
+        "description": "tester.py\n\nThis module contains functionality for automatically generating unit tests for Python code.\n\nFunctions:\n    generate_tests: Generates unit test skeletons for all functions in the provided code.\n\nDependencies:\n    - ast: For parsing and analyzing Python code structure"
+      },
+      "core/modifier.py": {
+        "description": "modifier.py\n\nThis module contains the Modifier class, which is responsible for modifying existing code using LLM.\n\nClasses:\n    None\n\nFunctions:\n    modify_code: Modifies existing Python code using OpenAI's GPT model based on user requests.\n\nDependencies:\n    - openai: For interacting with OpenAI's API\n    - dotenv: For loading environment variables\n    - utils.sanitizer: For cleaning code output\n    - utils.config: For logging configuration"
+      },
+      "core/__init__.py": {
+        "description": ""
+      },
+      "core/debugger.py": {
+        "description": "debugger.py\n\nThis module contains the debugger functions for the API. It includes the parse_error_context function to extract relevant code context around the error line, and the get_debug_plan function to generate a structured debugging plan based on the error type."
+      },
+      "core/generator.py": {
+        "description": "generator.py\n\nGenerator module for code generation from natural language requests.\n\nThis module provides functionality to generate Python code from user requests using\nOpenAI's GPT models. It handles the communication with the OpenAI API, processes\nthe responses, and ensures proper error handling.\n\nAttributes:\n    None\n\nDependencies:\n    - openai: For API communication with OpenAI\n    - utils.sanitizer: For cleaning generated code\n    - utils.config: For client configuration and logging"
+      },
+      "core/version_control.py": {
+        "description": "version_control.py\n\nThis module contains the VersionControl class, which is responsible for managing Git operations such as creating branches, committing changes, and merging branches."
+      },
+      "core/enhanced_debugger.py": {
+        "description": "enhanced_debugger.py\n\nThis module contains the EnhancedDebugger class, which is responsible for generating a structured debugging plan based on the error type."
+      },
+      "core/concierge.py": {
+        "description": "concierge.py\n\nThis module contains the Concierge class, which is responsible for managing the codebase and providing information about the codebase to the user."
+      },
+      "core/error_handler.py": {
+        "description": "error_handler.py\n\nThis module contains the error handling functions for the API. It includes the parse_error_context function to extract relevant code context around the error line, and the get_debug_plan function to generate a structured debugging plan based on the error type."
+      },
+      "core/codebase_routes.py": {
+        "description": ""
+      },
+      "core/codebase_manager.py": {
+        "description": ""
+      },
+      "core/executor.py": {
+        "description": "executor.py\n\nThis module contains the executor functions for the API. It includes the execute_code function to execute code in a controlled environment with configurable timeout, and the execute_solution function to execute the solutions proposed in the debug plan."
+      },
+      "tests/test_basic.py": {
+        "description": ""
+      },
+      "tests/__init__.py": {
+        "description": ""
+      },
+      "tests/test_custom_mapper.py": {
+        "description": ""
+      },
+      "utils/config.py": {
+        "description": "config.py\n\nThis module contains the configuration for the API. It includes the OpenAI client, the logging setup, and the security error.\n\nKey Components:\n    - OpenAI client configuration\n    - Environment variable loading\n    - Logging setup\n    - Security error definition\n\nDependencies:\n    - openai: For API client\n    - python-dotenv: For environment variable management\n    - logging: For application logging"
+      },
+      "utils/sanitizer.py": {
+        "description": "sanitizer.py\n\nThis module contains sanitization functions for ensuring safe code execution and JSON processing.\n\nKey Functions:\n    - clean_code: Sanitizes and validates Python code before execution\n    - clean_json: Cleans and extracts valid JSON from string input\n\nSecurity:\n    This module implements basic security measures to prevent execution of potentially\n    harmful code and ensure proper JSON formatting."
+      },
+      "utils/index.py": {
+        "description": ""
+      },
+      "utils/security.py": {
+        "description": "security.py\n\nThis module will contain security-related functions for the API. It is a placeholder for future development."
+      },
+      "utils/__init__.py": {
+        "description": ""
+      },
+      "utils/logger.py": {
+        "description": "logger.py\n\nLogger Configuration Module\n\nThis module provides logging setup functionality for the application. It configures both file\nand console logging with rotation capabilities to manage log file sizes.\n\nThe logger is configured to:\n- Write logs to both console and file\n- Rotate log files when they reach 1MB\n- Maintain 5 backup log files\n- Use UTF-8 encoding\n- Format logs with timestamp, level, and message"
+      },
+      "utils/embeddings.py": {
+        "description": ""
+      },
+      "utils/environment.py": {
+        "description": "environment.py\n\nThis module contains functions for interacting with the environment, such as creating a new Git branch."
+      },
+      "utils/search.py": {
+        "description": ""
+      }
+    },
+    "functions": {
+      "main": {
+        "file": "run_console.py",
+        "lines": [
+          35,
+          172
+        ],
+        "description": ""
+      },
+      "hash_content": {
+        "file": "custom_mapper.py",
+        "lines": [
+          74,
+          84
+        ],
+        "description": "Generate a unique hash for a chunk of content using SHA-256.\n\nArgs:\n    content (str): The content to be hashed\n\nReturns:\n    str: Hexadecimal string representation of the SHA-256 hash"
+      },
+      "call_llm": {
+        "file": "custom_mapper.py",
+        "lines": [
+          88,
+          124
+        ],
+        "description": "Enhanced LLM caller that includes relevant context from metadata.\n\nArgs:\n    prompt (str): The main prompt for the LLM\n    context (dict, optional): Specific context needed for this call\n    metadata (dict, optional): Condensed project metadata"
+      },
+      "extract_relevant_metadata": {
+        "file": "custom_mapper.py",
+        "lines": [
+          126,
+          149
+        ],
+        "description": "Extract only the relevant parts of metadata based on context.\n\nArgs:\n    metadata (dict): Condensed project metadata\n    context (dict): Context specifying what metadata is needed"
+      },
+      "condense_metadata": {
+        "file": "custom_mapper.py",
+        "lines": [
+          410,
+          458
+        ],
+        "description": ""
+      },
+      "map_directory_structure_with_cross_references": {
+        "file": "custom_mapper.py",
+        "lines": [
+          357,
+          407
+        ],
+        "description": "Map directory structure with cross-referencing."
+      },
+      "extract_dependencies": {
+        "file": "custom_mapper.py",
+        "lines": [
+          266,
+          275
+        ],
+        "description": "Extract dependencies (function calls) from a node."
+      },
+      "extract_metadata_from_file": {
+        "file": "custom_mapper.py",
+        "lines": [
+          151,
+          264
+        ],
+        "description": "Extract metadata for a single file."
+      },
+      "iterative_codebase_description": {
+        "file": "custom_mapper.py",
+        "lines": [
+          692,
+          709
+        ],
+        "description": ""
+      },
+      "chunk_file_syntax_aware": {
+        "file": "custom_mapper.py",
+        "lines": [
+          20,
+          69
+        ],
+        "description": "Parse a Python file and chunk it by functions and classes.\n\nPerforms syntax-aware chunking of Python source code by identifying function and class\ndefinitions using the AST parser. Each chunk contains metadata about the code segment.\n\nArgs:\n    file_path (str): Path to the Python file to be chunked\n\nReturns:\n    List[Dict]: A list of chunks where each chunk contains:\n        - id: Unique hash of the chunk content\n        - type: Either \"class\" or \"function\"\n        - name: Name of the class or function\n        - content: Actual source code\n        - start_line: Starting line number\n        - end_line: Ending line number\n\nRaises:\n    ValueError: If there's a syntax error in the source file"
+      },
+      "save_metadata_to_file": {
+        "file": "custom_mapper.py",
+        "lines": [
+          350,
+          353
+        ],
+        "description": "Save metadata to a JSON file."
+      },
+      "review_function": {
+        "file": "custom_mapper.py",
+        "lines": [
+          461,
+          470
+        ],
+        "description": "Review a specific function with relevant context."
+      },
+      "discuss_codebase": {
+        "file": "custom_mapper.py",
+        "lines": [
+          472,
+          478
+        ],
+        "description": "Generate a high-level discussion of the codebase."
+      },
+      "summarize_codebase": {
+        "file": "custom_mapper.py",
+        "lines": [
+          482,
+          495
+        ],
+        "description": ""
+      },
+      "extract_major_elements": {
+        "file": "custom_mapper.py",
+        "lines": [
+          499,
+          517
+        ],
+        "description": ""
+      },
+      "interpret_intent": {
+        "file": "custom_mapper.py",
+        "lines": [
+          520,
+          531
+        ],
+        "description": ""
+      },
+      "analyze_codebase": {
+        "file": "custom_mapper.py",
+        "lines": [
+          535,
+          550
+        ],
+        "description": ""
+      },
+      "describe_codebase": {
+        "file": "custom_mapper.py",
+        "lines": [
+          554,
+          588
+        ],
+        "description": ""
+      },
+      "fetch_metadata": {
+        "file": "custom_mapper.py",
+        "lines": [
+          592,
+          594
+        ],
+        "description": "Fetches specific keys from the metadata."
+      },
+      "fetch_code_snippet": {
+        "file": "custom_mapper.py",
+        "lines": [
+          596,
+          600
+        ],
+        "description": "Fetches a code snippet from a file."
+      },
+      "execute_rag_flow": {
+        "file": "main.py",
+        "lines": [
+          133,
+          167
+        ],
+        "description": ""
+      },
+      "generate_tests": {
+        "file": "core/tester.py",
+        "lines": [
+          14,
+          52
+        ],
+        "description": "Generate unit test skeletons for all functions in the provided code.\n\nThis function parses Python code using the ast module and creates test function\ntemplates for each function definition found in the code. The generated tests\nfollow the naming convention 'test_<function_name>'.\n\nArgs:\n    code (str): The source code to generate tests for. Should be valid Python code.\n\nReturns:\n    str: A string containing the generated test code, with one test function per\n         function found in the input code. Each test function contains a TODO\n         comment and a pass statement.\n\nExample:\n    >>> code = '''\n    ... def add(a, b):\n    ...     return a + b\n    ... '''\n    >>> print(generate_tests(code))\n    def test_add():\n        # TODO: Implement test for add\n        pass\n\nNote:\n    - The generated tests are skeleton implementations that need to be filled in\n    - Test names are automatically prefixed with 'test_' to be recognized by pytest\n    - Each generated test includes a TODO comment indicating what needs to be tested"
+      },
+      "parse_error_context": {
+        "file": "core/error_handler.py",
+        "lines": [
+          21,
+          40
+        ],
+        "description": "Extract relevant code context around the error line if applicable."
+      },
+      "get_debug_plan": {
+        "file": "core/error_handler.py",
+        "lines": [
+          42,
+          69
+        ],
+        "description": "Generate structured debugging plan based on error type."
+      },
+      "generate_code": {
+        "file": "core/generator.py",
+        "lines": [
+          35,
+          87
+        ],
+        "description": "Generate Python code from a natural language request using OpenAI's GPT model.\n\nThis function takes a natural language description of desired functionality and\ngenerates corresponding Python code using OpenAI's API. It includes error handling,\nlogging, and code sanitization.\n\nArgs:\n    user_request (str): A natural language description of the code to be generated.\n        Example: \"create a function that sorts a list of numbers\"\n\nReturns:\n    str: The generated Python code, cleaned and formatted.\n\nRaises:\n    RuntimeError: If code generation fails for any reason (API errors, invalid responses, etc.).\n        The error message will include the original exception details.\n\nExample:\n    >>> code = generate_code(\"create a function to calculate fibonacci numbers\")\n    >>> print(code)\n    def fibonacci(n):\n        if n <= 1:\n            return n\n        return fibonacci(n-1) + fibonacci(n-2)"
+      },
+      "execute_code": {
+        "file": "core/executor.py",
+        "lines": [
+          47,
+          136
+        ],
+        "description": "Execute Python code in a controlled environment with configurable timeout.\n\nThis function executes the provided code in a sandbox directory with safety measures\nand timeout constraints. It captures both stdout and stderr, along with detailed\nerror information if execution fails.\n\nArgs:\n    code (str): The Python code to execute.\n    timeout (int, optional): Maximum execution time in seconds. Defaults to 10.\n        Set to None for no timeout.\n\nReturns:\n    dict: A dictionary containing execution results with the following structure:\n        On success:\n            {\n                \"success\": True,\n                \"output\": str  # Standard output from the code execution\n            }\n        On failure:\n            {\n                \"success\": False,\n                \"error\": {\n                    \"error\": str,  # Error message\n                    \"error_type\": str,  # Type of error (runtime_error/timeout_error)\n                    \"system_info\": {  # System information for debugging\n                        \"os\": str,\n                        \"python_version\": str,\n                        \"working_directory\": str\n                    },\n                    \"traceback\": str  # Full error traceback\n                }\n            }\n\nRaises:\n    OSError: If sandbox directory creation fails.\n    IOError: If writing to sandbox file fails."
+      },
+      "test_simple": {
+        "file": "tests/test_basic.py",
+        "lines": [
+          3,
+          4
+        ],
+        "description": ""
+      },
+      "test_addition": {
+        "file": "tests/test_basic.py",
+        "lines": [
+          6,
+          7
+        ],
+        "description": ""
+      },
+      "sample_python_files": {
+        "file": "tests/test_custom_mapper.py",
+        "lines": [
+          11,
+          39
+        ],
+        "description": "Create a temporary directory with sample Python files"
+      },
+      "test_extract_metadata": {
+        "file": "tests/test_custom_mapper.py",
+        "lines": [
+          59,
+          70
+        ],
+        "description": "Test metadata extraction from files"
+      },
+      "test_map_codebase": {
+        "file": "tests/test_custom_mapper.py",
+        "lines": [
+          72,
+          87
+        ],
+        "description": "Test mapping the entire codebase"
+      },
+      "test_map_codebase_ignores_files": {
+        "file": "tests/test_custom_mapper.py",
+        "lines": [
+          89,
+          99
+        ],
+        "description": "Test that mapping ignores specified files"
+      },
+      "clean_path": {
+        "file": "utils/sanitizer.py",
+        "lines": [
+          19,
+          23
+        ],
+        "description": "Clean and sanitize a file path."
+      },
+      "clean_code": {
+        "file": "utils/sanitizer.py",
+        "lines": [
+          25,
+          52
+        ],
+        "description": "Sanitize and validate Python code before execution.\n\nThis function performs basic security validation by:\n    1. Removing Python code block markers\n    2. Checking for potentially dangerous operations\n    3. Stripping whitespace\n\nArgs:\n    code (str): Raw code string, potentially containing markdown code blocks\n    \nReturns:\n    str: Cleaned and validated code string\n    \nRaises:\n    SecurityError: If potentially unsafe operations are detected\n    \nExample:\n    >>> clean_code(\"```python\\nprint('hello')\\n```\")\n    \"print('hello')\""
+      },
+      "clean_json": {
+        "file": "utils/sanitizer.py",
+        "lines": [
+          55,
+          81
+        ],
+        "description": "Clean JSON string by removing non-JSON content and comments.\n\nThis function:\n    1. Extracts JSON content from markdown code blocks\n    2. Removes single-line comments (// and #)\n    3. Removes multi-line comments (/* ... */)\n\nArgs:\n    json_string (str): Raw JSON string, potentially containing comments and markdown\n    \nReturns:\n    str: Cleaned JSON string ready for parsing\n    \nExample:\n    >>> clean_json(\"```json\\n{\\n  // comment\\n  \"key\": \"value\"\\n}\\n```\")\n    '\\n{\\n  \"key\": \"value\"\\n}\\n'"
+      },
+      "get_index_manager": {
+        "file": "utils/index.py",
+        "lines": [
+          249,
+          270
+        ],
+        "description": "Get or create the singleton instance of IndexManager.\nIf watched_dir is provided, it will create a new instance with that directory.\n\nArgs:\n    watched_dir (str, optional): Directory to watch. Required for first creation\n                               or when switching workspaces.\n    \nReturns:\n    IndexManager: The singleton instance"
+      },
+      "setup_logging": {
+        "file": "utils/logger.py",
+        "lines": [
+          32,
+          76
+        ],
+        "description": "Configure and initialize the application logger with both file and console handlers.\n\nCreates a rotating file handler that:\n- Maintains log files up to 1MB in size\n- Keeps 5 backup files\n- Appends to existing log files\n- Uses UTF-8 encoding\n\nReturns:\n    logging.Logger: Configured logger instance with both file and console handlers,\n                   formatted with timestamp, log level, and message."
+      },
+      "generate_embeddings": {
+        "file": "utils/embeddings.py",
+        "lines": [
+          15,
+          30
+        ],
+        "description": "Generate embeddings using the updated OpenAI API."
+      },
+      "create_git_branch": {
+        "file": "utils/environment.py",
+        "lines": [
+          20,
+          26
+        ],
+        "description": "Create a new Git branch."
+      },
+      "search_code": {
+        "file": "utils/search.py",
+        "lines": [
+          7,
+          62
+        ],
+        "description": "Search the FAISS index using a text query."
+      }
+    },
+    "classes": {
+      "LLMReflector": {
+        "file": "custom_mapper.py",
+        "lines": [
+          602,
+          684
+        ],
+        "description": ""
+      },
+      "CodeGenerationRequest": {
+        "file": "main.py",
+        "lines": [
+          76,
+          83
+        ],
+        "description": "Data model for code generation requests.\n\nAttributes:\n    request (str): The natural language request describing the code to be generated"
+      },
+      "CodeExecutionRequest": {
+        "file": "main.py",
+        "lines": [
+          85,
+          94
+        ],
+        "description": "Data model for code execution requests.\n\nAttributes:\n    code (str): The code to be executed\n    timeout (Optional[int]): Maximum execution time in seconds, defaults to 10"
+      },
+      "CodeModificationRequest": {
+        "file": "main.py",
+        "lines": [
+          96,
+          105
+        ],
+        "description": "Data model for code modification requests.\n\nAttributes:\n    code (str): The original code to be modified\n    modification (str): The natural language description of desired modifications"
+      },
+      "RAGQueryRequest": {
+        "file": "main.py",
+        "lines": [
+          107,
+          114
+        ],
+        "description": "Data model for RAG-based code queries.\n\nAttributes:\n    query (str): The natural language query about the codebase"
+      },
+      "ModifyRequest": {
+        "file": "main.py",
+        "lines": [
+          272,
+          277
+        ],
+        "description": "Request model for code modifications."
+      },
+      "CodeMapper": {
+        "file": "core/code_mapper.py",
+        "lines": [
+          17,
+          332
+        ],
+        "description": "A class for analyzing and mapping code structure and dependencies.\n\nThis class provides functionality to analyze Python codebases, generate metadata,\nand map dependencies between files and functions.\n\nAttributes:\n    workspace_dir (str): Root directory of the codebase to analyze\n    ignore_dirs (set): Directories to ignore during analysis\n    ignore_files (set): Files to ignore during analysis"
+      },
+      "ModificationContext": {
+        "file": "core/modifier.py",
+        "lines": [
+          48,
+          54
+        ],
+        "description": ""
+      },
+      "CodeModifier": {
+        "file": "core/modifier.py",
+        "lines": [
+          56,
+          253
+        ],
+        "description": ""
+      },
+      "VersionControl": {
+        "file": "core/version_control.py",
+        "lines": [
+          20,
+          35
+        ],
+        "description": ""
+      },
+      "EnhancedDebugger": {
+        "file": "core/enhanced_debugger.py",
+        "lines": [
+          29,
+          289
+        ],
+        "description": "A class for generating structured debugging plans based on error types.\n\nThis class analyzes Python errors, generates debugging plans, and can handle package\ninstallation for import-related errors.\n\nAttributes:\n    code_mapper (CodeMapper): An instance of CodeMapper for code analysis."
+      },
+      "CodeConcierge": {
+        "file": "core/concierge.py",
+        "lines": [
+          21,
+          124
+        ],
+        "description": "A class that manages and provides information about the codebase.\n\nThe CodeConcierge acts as a central point for accessing information about the code structure,\nincluding functions, classes, and dependencies. It maintains a code map that can be loaded\nfrom disk or generated on demand.\n\nAttributes:\n    code_mapper (CodeMapper): An instance of CodeMapper used to analyze the codebase\n    code_map (dict): A dictionary containing the mapped codebase information including:\n        - functions: Dict mapping function names to their metadata\n        - classes: Dict mapping class names to their metadata\n        - dependencies: Dict of project dependencies\n\nExample:\n    >>> mapper = CodeMapper(root_directory=\".\")\n    >>> concierge = CodeConcierge(mapper)\n    >>> print(concierge.describe_function(\"my_function\"))"
+      },
+      "CodebaseRequest": {
+        "file": "core/codebase_routes.py",
+        "lines": [
+          15,
+          18
+        ],
+        "description": ""
+      },
+      "CodebaseManager": {
+        "file": "core/codebase_manager.py",
+        "lines": [
+          19,
+          605
+        ],
+        "description": "Manages codebase analysis, mapping, and modifications."
+      },
+      "SecurityError": {
+        "file": "utils/config.py",
+        "lines": [
+          62,
+          74
+        ],
+        "description": "Custom exception for handling security-related errors in the application.\n\nThis exception should be raised when security violations occur, such as:\n    - Invalid authentication attempts\n    - Unauthorized access to protected resources\n    - Security policy violations\n    \nInherits from:\n    Exception: Base Python exception class"
+      },
+      "IndexManager": {
+        "file": "utils/index.py",
+        "lines": [
+          15,
+          244
+        ],
+        "description": ""
+      }
+    }
+  }
+}

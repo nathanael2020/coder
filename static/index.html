@@ -3,9 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div id="root"></div>
+    <!-- <script src="/static/main.js"></script> -->
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Generator Interface</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/editor/editor.main.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/8.4.0/gridstack.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <link href="https://unpkg.com/vis-network/styles/vis-network.min.css" rel="stylesheet" type="text/css" />
     <style>
         body {
             margin: 0;
@@ -103,6 +117,485 @@
         .timeout-control input[type="number"] {
             width: 60px;
         }
+
+        /* Add new styles */
+        .file-tree {
+            overflow: auto;
+            padding: 8px;
+        }
+
+        .file-tree ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .file-tree li {
+            cursor: pointer;
+            padding: 2px 0;
+        }
+
+        .metadata-viewer {
+            overflow: auto;
+            padding: 8px;
+        }
+
+        .dependency-graph {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Tab styles */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            background: #f8f9fa;
+            flex-shrink: 0;
+        }
+
+        .tab {
+            padding: 8px 16px;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        .tab.active {
+            border-bottom: 2px solid #0066cc;
+            background: white;
+        }
+
+        /* Import form */
+        .import-form {
+            padding: 16px;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .import-form input[type="text"] {
+            flex: 1;
+            padding: 6px;
+        }
+
+        .file-tree {
+            padding: 10px;
+            overflow: auto;
+            height: calc(100% - 40px);
+        }
+
+        .file-tree ul {
+            list-style: none;
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .file-tree li {
+            padding: 2px 0;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .file-tree li:hover {
+            background-color: #f0f0f0;
+        }
+
+        .file-tree .directory {
+            font-weight: bold;
+        }
+
+        .file-tree .file {
+            font-weight: normal;
+        }
+
+        .empty-tree {
+            color: #666;
+            font-style: italic;
+            padding: 10px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .stat-panel {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-panel h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            padding: 0.25rem 0;
+        }
+
+        .stat-label {
+            color: #6c757d;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .llm-status {
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+
+        .llm-status.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .llm-status.warning {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .llm-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .llm-button:hover {
+            background-color: #0056b3;
+        }
+
+        .action-container {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .file-tree {
+            font-family: monospace;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+            max-height: 500px;
+            overflow: auto;
+        }
+
+        .file-tree ul {
+            list-style: none;
+            padding-left: 1.5rem;
+            margin: 0;
+        }
+
+        .file-tree li {
+            padding: 0.2rem 0;
+            white-space: nowrap;
+        }
+
+        .file-tree .icon {
+            margin-right: 0.5rem;
+            cursor: pointer;
+        }
+
+        .file-tree .name {
+            cursor: pointer;
+        }
+
+        .file-tree .name:hover {
+            color: #007bff;
+        }
+
+        .file-tree .directory > ul {
+            display: none;
+        }
+
+        .file-tree .directory.expanded > ul {
+            display: block;
+        }
+
+        .file-tree .error {
+            color: #dc3545;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .metadata-content {
+            padding: 1rem;
+            overflow: auto;
+            max-height: calc(100vh - 200px);
+        }
+
+        .metadata-file {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .metadata-file h3 {
+            margin: 0 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e9ecef;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+
+        .metadata-section {
+            margin: 1.5rem 0;
+        }
+
+        .metadata-section h4 {
+            color: #495057;
+            margin: 0 0 1rem 0;
+            font-size: 1.1rem;
+        }
+
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .metadata-item {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #e9ecef;
+        }
+
+        .function-name, .class-name, .import-type {
+            color: #0056b3;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-family: monospace;
+        }
+
+        .metadata-details {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .metadata-details span {
+            display: block;
+            margin: 0.25rem 0;
+        }
+
+        .metadata-details code {
+            background: #e9ecef;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+            color: #e83e8c;
+        }
+
+        .imports-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .import-list {
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .from-import {
+            margin: 0.25rem 0;
+        }
+
+        .line-range {
+            color: #6c757d;
+            font-size: 0.85em;
+        }
+
+        .decorators {
+            color: #28a745;
+            font-family: monospace;
+        }
+
+        .args {
+            color: #6610f2;
+        }
+
+        .docstring {
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: #f8f9fa;
+            border-left: 3px solid #6c757d;
+            font-style: italic;
+            color: #495057;
+        }
+
+        .error {
+            color: #dc3545;
+            padding: 1rem;
+            text-align: center;
+            background: #f8d7da;
+            border-radius: 4px;
+            margin: 1rem;
+        }
+
+        .query-container {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        #queryInput {
+            width: 100%;
+            min-height: 80px;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .query-button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            align-self: flex-end;
+        }
+
+        .query-button:hover {
+            background-color: #218838;
+        }
+
+        .query-response {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+            margin: 0 1rem 1rem 1rem;
+            max-height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            font-family: monospace;
+            display: none;
+        }
+
+        .query-response.has-response {
+            display: block;
+            border: 1px solid #ddd;
+        }
+
+        .query-response.error {
+            border-color: #dc3545;
+            color: #dc3545;
+            background-color: #f8d7da;
+        }
+
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 0.5rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Add these styles to your existing CSS */
+        .modify-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        .modify-controls textarea {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .modification-results {
+            margin-top: 12px;
+            padding: 12px;
+            border-top: 1px solid #ddd;
+            max-height: 300px;
+            overflow: auto;
+        }
+
+        .modification-result {
+            background: #f8f9fa;
+            border-radius: 4px;
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .modification-result h3 {
+            margin: 0 0 8px 0;
+            font-size: 1rem;
+            color: #2c3e50;
+        }
+
+        .modification-result .context,
+        .modification-result .modification {
+            margin-top: 12px;
+        }
+
+        .modification-result h4 {
+            margin: 0 0 8px 0;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .modification-result pre {
+            background: #fff;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            overflow: auto;
+            margin: 0;
+        }
+
+        .modification-result code {
+            font-family: monospace;
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+        }
     </style>
 </head>
 <body>
@@ -131,7 +624,7 @@
                         <h2>Code Editor</h2>
                     </div>
                     <div id="codeEditor" class="editor-container"></div>
-                    <div class="control-panel">
+                    <div class="control-panel">                        
                         <button onclick="executeCode()">Execute</button>
                         <div class="timeout-control">
                             <label for="timeout">Timeout:</label>
@@ -145,6 +638,7 @@
                             </label>
                         </div>
                     </div>
+                    <div id="modificationResults" class="modification-results"></div>
                 </div>
             </div>
         </div>
@@ -163,10 +657,71 @@
                 </div>
             </div>
         </div>
+
+        <!-- Add new codebase section -->
+        <div class="grid-stack-item" gs-w="4" gs-h="4">
+            <div class="grid-stack-item-content">
+                <div class="section codebase-section">
+                    <div class="section-header">
+                        <span class="drag-handle"></span>
+                        <h2>Codebase Analysis</h2>
+                    </div>
+                    <div class="import-form">
+                        <input type="text" id="repoUrl" placeholder="Enter git repository URL">
+                        <button onclick="importRepo()">Import</button>
+                        <input type="file" id="folderUpload" webkitdirectory directory multiple style="display: none">
+                        <button onclick="document.getElementById('folderUpload').click()">Upload Folder</button>
+                    </div>
+                    <div class="tabs">
+                        <button class="tab active" onclick="switchTab(this, 'fileTree')">Files</button>
+                        <button class="tab" onclick="switchTab(this, 'dependencies')">Dependencies</button>
+                        <button class="tab" onclick="switchTab(this, 'metadata')">Metadata</button>
+                    </div>
+                    <div id="fileTree" class="file-tree tab-content"></div>
+                    <div id="dependencies" class="dependency-graph tab-content" style="display: none"></div>
+                    <div id="metadata" class="metadata-viewer tab-content" style="display: none"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add this in your HTML body where you want the stats to appear -->
+        <div class="grid-stack-item" gs-w="4" gs-h="4">
+            <div class="grid-stack-item-content">
+                <div class="section stats-section">
+                    <div class="section-header">
+                        <span class="drag-handle"></span>
+                        <h2>Codebase Statistics</h2>
+                    </div>
+                    <div id="statsContainer" class="stats-container">
+                        <div id="fileStats" class="stat-panel"></div>
+                        <div id="codeStats" class="stat-panel"></div>
+                        <div id="gitStats" class="stat-panel"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add this new grid item after the stats section -->
+        <div class="grid-stack-item" gs-w="4" gs-h="2">
+            <div class="grid-stack-item-content">
+                <div class="section query-section">
+                    <div class="section-header">
+                        <span class="drag-handle"></span>
+                        <h2>Codebase Query</h2>
+                    </div>
+                    <div class="query-container">
+                        <textarea id="queryInput" placeholder="Ask a question about the codebase..."></textarea>
+                        <button onclick="submitQuery()" class="query-button">Ask Question</button>
+                    </div>
+                    <div id="queryResponse" class="query-response"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/8.4.0/gridstack-all.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.44.0/min/vs/loader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.6/vis-network.min.js"></script>
     <script>
         let commandEditor, codeEditor;
 
@@ -223,20 +778,58 @@
             document.getElementById('outputArea').innerText = formatExecutionResult(data);
         }
 
+        
         async function modifyCode() {
-            const response = await fetch('/modify/', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    code: codeEditor.getValue(),
-                    modification: commandEditor.getValue()
-                })
-            });
-            const data = await response.json();
-            if (data.modified_code) {
-                codeEditor.setValue(data.modified_code);
+            const instruction = commandEditor.getValue().trim();
+            
+            if (!instruction) {
+                showToast('Please enter modification instructions');
+                return;
             }
-            document.getElementById('outputArea').innerText = JSON.stringify(data, null, 2);
+            
+            try {
+                const response = await fetch('/modify/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        instruction: instruction,
+                        currentCode: codeEditor.getValue()
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                console.log('Modification data:', data);
+                
+                if (data.modified_code) {
+                    let final_code = '';
+                    // Use Object.entries to iterate over the files object
+                    for (const [filepath, content] of Object.entries(data.modified_code.files)) {
+                        final_code += '# ' + filepath + '\n';
+                        final_code += content;
+                        final_code += '\n\n';
+                    }
+
+                    codeEditor.getModel().setValue(final_code);
+                    codeEditor.layout();
+
+                    if (data.evaluation_result) {
+                        console.log('Evaluation notes:', data.evaluation_result);
+                    }
+                    
+                    showToast('Code updated successfully');
+                } else {
+                    showToast('No modifications received from server');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                showToast(`Error: ${error.message || 'Error processing modification request'}`);
+            }
         }
 
         function formatExecutionResult(data) {
@@ -339,6 +932,623 @@
             if (commandEditor) commandEditor.layout();
             if (codeEditor) codeEditor.layout();
         });
+
+        // Add new functions for codebase analysis
+        async function importRepo() {
+            const url = document.getElementById('repoUrl').value;
+            if (!url) {
+                showToast('Please enter a repository URL');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/codebase/import', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ source: url })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log('API Response:', result); // Debug log
+
+                if (result.status === 'success' && result.data) {
+                    updateCodebaseView(result.data);
+                } else {
+                    showToast('Failed to analyze repository');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showToast('Failed to import repository');
+            }
+        }
+
+        // Handle folder upload
+        document.getElementById('folderUpload').addEventListener('change', async function(e) {
+            const formData = new FormData();
+            for (const file of e.target.files) {
+                formData.append('files', file, file.webkitRelativePath);
+            }
+
+            try {
+                const response = await fetch('/upload/', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                updateCodebaseView(data);
+            } catch (error) {
+                showToast('Failed to upload folder');
+                console.error(error);
+            }
+        });
+
+        function updateCodebaseView(data) {
+            console.log('Updating view with data:', data);
+
+            // Update file tree
+            const fileTreeElement = document.getElementById('fileTree');
+            if (fileTreeElement && data.files) {
+                fileTreeElement.innerHTML = generateFileTree(data.files);
+            }
+
+            // Update dependencies graph - pass the dependencies object directly
+            const dependenciesElement = document.getElementById('dependencies');
+            if (dependenciesElement && data.dependencies) {
+                renderDependencyGraph(dependenciesElement, data.dependencies);
+            }
+
+            // Update metadata viewer
+            const metadataElement = document.getElementById('metadata');
+            if (metadataElement && data.metadata) {
+                metadataElement.innerHTML = generateMetadataView(data.metadata);
+            }
+
+            // Update statistics
+            updateStats(data);
+
+            // Show success message
+            showToast('Repository analysis complete');
+        }
+
+        function generateFileTree(files) {
+            console.log('Generating file tree from:', files);
+
+            function buildTreeHtml(node, path = '') {
+                if (typeof node !== 'object') return '';
+                
+                let html = '<ul>';
+                const entries = Object.entries(node);
+                
+                // Sort entries: directories first, then files, both alphabetically
+                entries.sort(([nameA, valueA], [nameB, valueB]) => {
+                    const isDirectoryA = Object.keys(valueA).length > 0;
+                    const isDirectoryB = Object.keys(valueB).length > 0;
+                    if (isDirectoryA === isDirectoryB) {
+                        return nameA.localeCompare(nameB);
+                    }
+                    return isDirectoryB ? 1 : -1;
+                });
+
+                for (const [name, children] of entries) {
+                    const fullPath = path ? `${path}/${name}` : name;
+                    const isDirectory = Object.keys(children).length > 0;
+                    
+                    html += `
+                        <li class="${isDirectory ? 'directory' : 'file'}" 
+                            data-path="${fullPath}">
+                            <span class="icon" onclick="toggleDirectory(this)">
+                                ${isDirectory ? '📁' : '📄'}
+                            </span>
+                            <span class="name" onclick="${isDirectory ? 'toggleDirectory(this)' : `loadFile('${fullPath}')`}">
+                                ${name}
+                            </span>
+                            ${isDirectory ? buildTreeHtml(children, fullPath) : ''}
+                        </li>
+                    `;
+                }
+                html += '</ul>';
+                return html;
+            }
+
+            if (!files || typeof files !== 'object') {
+                console.error('Invalid file tree data:', files);
+                return '<div class="error">No file structure available</div>';
+            }
+
+            return buildTreeHtml(files);
+        }
+
+        function toggleDirectory(element) {
+            const li = element.closest('li');
+            li.classList.toggle('expanded');
+        }
+
+        function renderDependencyGraph(container, dependenciesData) {
+            console.log('Raw dependencies data:', dependenciesData);  // Debug log
+            
+            // Create nodes and edges arrays
+            const nodes = [];
+            const edges = [];
+            const nodeIds = new Set();
+
+            try {
+                // Process each Python file and its dependencies
+                Object.entries(dependenciesData).forEach(([sourceFile, fileInfo]) => {
+                    // Add source file as a node
+                    if (!nodeIds.has(sourceFile)) {
+                        nodes.push({
+                            id: sourceFile,
+                            label: sourceFile.split('/').pop(),
+                            color: '#97c2fc',  // Python file color
+                            level: 0
+                        });
+                        nodeIds.add(sourceFile);
+                    }
+
+                    // Process imports array
+                    if (Array.isArray(fileInfo.imports)) {
+                        fileInfo.imports.forEach(importName => {
+                            if (!nodeIds.has(importName)) {
+                                nodes.push({
+                                    id: importName,
+                                    label: importName,
+                                    color: '#ffb366',  // Import color
+                                    level: 1
+                                });
+                                nodeIds.add(importName);
+                            }
+                            edges.push({
+                                from: sourceFile,
+                                to: importName,
+                                arrows: 'to'
+                            });
+                        });
+                    }
+
+                    // Process from_imports object
+                    if (fileInfo.from_imports) {
+                        Object.entries(fileInfo.from_imports).forEach(([module, imports]) => {
+                            if (!nodeIds.has(module)) {
+                                nodes.push({
+                                    id: module,
+                                    label: module,
+                                    color: '#ffb366',
+                                    level: 1
+                                });
+                                nodeIds.add(module);
+                            }
+                            edges.push({
+                                from: sourceFile,
+                                to: module,
+                                arrows: 'to',
+                                label: imports.join(', '),
+                                font: { size: 8 }
+                            });
+                        });
+                    }
+                });
+
+                console.log('Processed nodes:', nodes.length);  // Debug log
+                console.log('Processed edges:', edges.length);  // Debug log
+
+                if (nodes.length === 0) {
+                    container.innerHTML = '<div class="error">No dependencies found in the data</div>';
+                    return;
+                }
+
+                // Create the network
+                const data = {
+                    nodes: new vis.DataSet(nodes),
+                    edges: new vis.DataSet(edges)
+                };
+
+                const options = {
+                    layout: {
+                        hierarchical: {
+                            direction: 'LR',
+                            sortMethod: 'directed',
+                            levelSeparation: 150,
+                            nodeSpacing: 100,
+                            treeSpacing: 200
+                        }
+                    },
+                    nodes: {
+                        shape: 'box',
+                        margin: 10,
+                        font: {
+                            size: 12,
+                            face: 'monospace'
+                        },
+                        shadow: true,
+                        borderWidth: 2
+                    },
+                    edges: {
+                        smooth: {
+                            type: 'cubicBezier',
+                            forceDirection: 'horizontal'
+                        },
+                        color: {
+                            color: '#848484',
+                            highlight: '#848484',
+                            hover: '#848484'
+                        },
+                        width: 1.5
+                    },
+                    physics: false,
+                    interaction: {
+                        hover: true,
+                        tooltipDelay: 300,
+                        zoomView: true
+                    }
+                };
+
+                // Clear any existing network
+                container.innerHTML = '';
+                
+                // Create network
+                new vis.Network(container, data, options);
+
+            } catch (e) {
+                console.error('Error creating dependency graph:', e);
+                container.innerHTML = `<div class="error">Error creating dependency graph: ${e.message}</div>`;
+            }
+        }
+
+        function loadFile(path) {
+            fetch(`/api/codebase/file/${encodeURIComponent(path)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.content) {
+                        codeEditor.setValue(data.content);
+                        showToast(`Loaded ${path}`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading file:', error);
+                    showToast('Failed to load file');
+                });
+        }
+
+        function switchTab(button, tabId) {
+            // Update active tab button
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            button.classList.add('active');
+
+            // Show selected content
+            document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
+            document.getElementById(tabId).style.display = 'block';
+
+            // Refresh editors if needed
+            if (commandEditor) commandEditor.layout();
+            if (codeEditor) codeEditor.layout();
+        }
+
+        function formatStats(stats) {
+            return `Codebase Statistics:
+Total Files: ${stats.total_files}
+Total Lines of Code: ${stats.total_lines}
+Total Functions: ${stats.total_functions}
+Total Classes: ${stats.total_classes}`;
+        }
+
+        function updateStats(data) {
+            console.log('Raw stats data:', data);  // Debug log
+
+            // Update File Statistics
+            const fileStats = document.getElementById('fileStats');
+            if (fileStats) {
+                // Get total files by counting the files in metadata
+                const totalFiles = Object.keys(data.metadata.metadata || {}).length;
+                
+                // Count file types from metadata
+                const fileTypes = {};
+                Object.keys(data.metadata.metadata || {}).forEach(filePath => {
+                    const ext = filePath.split('.').pop();
+                    fileTypes[`.${ext}`] = (fileTypes[`.${ext}`] || 0) + 1;
+                });
+
+                fileStats.innerHTML = `
+                    <h3>File Statistics</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Files:</span>
+                        <span class="stat-value">${totalFiles}</span>
+                    </div>
+                    <div class="stat-grid">
+                        ${Object.entries(fileTypes).map(([ext, count]) => `
+                            <div class="stat-item">
+                                <span class="stat-label">${ext || 'No extension'}:</span>
+                                <span class="stat-value">${count}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Python Files:</span>
+                        <span class="stat-value">${Object.keys(data.metadata.metadata || {}).length}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Dependencies:</span>
+                        <span class="stat-value">${Object.keys(data.dependencies || {}).length}</span>
+                    </div>
+                `;
+            }
+
+            // Update Code Statistics
+            const codeStats = document.getElementById('codeStats');
+            if (codeStats && data?.code) {
+                const totalChars = data.llm_processing?.total_characters || 0;
+                const canProcessWithLLM = data.llm_processing?.can_process_with_gpt4 || false;
+                
+                codeStats.innerHTML = `
+                    <h3>Code Analysis</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Lines:</span>
+                        <span class="stat-value">${formatNumber(data.code.total_lines || 0)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Code Lines:</span>
+                        <span class="stat-value">${formatNumber(data.code.code_lines || 0)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Comments:</span>
+                        <span class="stat-value">${formatNumber(data.code.comment_lines || 0)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Blank Lines:</span>
+                        <span class="stat-value">${formatNumber(data.code.blank_lines || 0)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Characters:</span>
+                        <span class="stat-value">${formatNumber(totalChars)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Functions:</span>
+                        <span class="stat-value">${formatNumber(data.complexity?.total_functions || 0)}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Classes:</span>
+                        <span class="stat-value">${formatNumber(data.complexity?.total_classes || 0)}</span>
+                    </div>
+                    ${data.enhanced_stats ? `
+                        <div class="stat-item">
+                            <span class="stat-label">Estimated Read Time:</span>
+                            <span class="stat-value">${data.enhanced_stats.estimated_read_time || 'N/A'}</span>
+                        </div>
+                    ` : ''}
+                    <div class="stat-item llm-status ${canProcessWithLLM ? 'success' : 'warning'}">
+                        <span class="stat-label">LLM Processing:</span>
+                        <span class="stat-value">${canProcessWithLLM ? 'Available' : 'Codebase too large'}</span>
+                    </div>
+                `;
+            }
+
+            // Update Git Statistics
+            const gitStats = document.getElementById('gitStats');
+            if (gitStats && data?.git) {
+                gitStats.innerHTML = `
+                    <h3>Git Information</h3>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Commits:</span>
+                        <span class="stat-value">${data.git.total_commits || 0}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Contributors:</span>
+                        <span class="stat-value">${data.git.contributors || 0}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Active Branch:</span>
+                        <span class="stat-value">${data.git.active_branch || 'N/A'}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Total Branches:</span>
+                        <span class="stat-value">${data.git.branches || 1}</span>
+                    </div>
+                    ${data.git.last_modified ? `
+                        <div class="stat-item">
+                            <span class="stat-label">Last Modified:</span>
+                            <span class="stat-value">${new Date(data.git.last_modified).toLocaleString()}</span>
+                        </div>
+                    ` : ''}
+                    <div class="stat-item">
+                        <span class="stat-label">Uncommitted Changes:</span>
+                        <span class="stat-value">${data.git.has_uncommitted_changes ? 'Yes' : 'No'}</span>
+                    </div>
+                `;
+            }
+
+            // Add LLM Processing Button if available
+            if (data.llm_processing?.can_process_with_gpt4) {
+                const actionContainer = document.createElement('div');
+                actionContainer.className = 'action-container';
+                actionContainer.innerHTML = `
+                    <button onclick="processWithLLM()" class="llm-button">
+                        Process with LLM
+                    </button>
+                `;
+                const statsContainer = document.getElementById('statsContainer');
+                if (statsContainer) {
+                    statsContainer.appendChild(actionContainer);
+                }
+            }
+        }
+
+        // Add a helper function to format numbers
+        function formatNumber(num) {
+            return (num || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function generateMetadataView(metadataData) {
+            console.log('Raw metadata:', metadataData);  // Debug log
+            
+            // Get the actual metadata object, avoiding the nested structure
+            const metadata = metadataData?.metadata || metadataData;
+            if (!metadata || Object.keys(metadata).length === 0) {
+                return '<div class="error">No metadata found</div>';
+            }
+
+            let html = '<div class="metadata-content">';
+            
+            // Sort files alphabetically
+            const sortedFiles = Object.entries(metadata)
+                .filter(([key]) => key !== 'dependencies')  // Remove nested dependencies
+                .sort(([a], [b]) => a.localeCompare(b));
+            
+            for (const [file, info] of sortedFiles) {
+                html += `
+                    <div class="metadata-file">
+                        <h3>${file}</h3>
+                        
+                        <!-- Functions Section -->
+                        ${info.functions && Object.keys(info.functions).length > 0 ? `
+                            <div class="metadata-section">
+                                <h4>Functions (${Object.keys(info.functions).length})</h4>
+                                <div class="metadata-grid">
+                                    ${Object.entries(info.functions).map(([name, details]) => `
+                                        <div class="metadata-item">
+                                            <div class="function-name">${name}</div>
+                                            <div class="metadata-details">
+                                                ${details.line_range ? 
+                                                    `<span class="line-range">Lines: ${details.line_range[0]}-${details.line_range[1]}</span>` : 
+                                                    ''}
+                                                ${details.args?.length > 0 ? 
+                                                    `<span class="args">Args: <code>${details.args.join(', ')}</code></span>` : 
+                                                    ''}
+                                                ${details.decorators?.length > 0 ? 
+                                                    `<span class="decorators">@${details.decorators.join(' @')}</span>` : 
+                                                    ''}
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <!-- Classes Section -->
+                        ${info.classes && Object.keys(info.classes).length > 0 ? `
+                            <div class="metadata-section">
+                                <h4>Classes (${Object.keys(info.classes).length})</h4>
+                                <div class="metadata-grid">
+                                    ${Object.entries(info.classes).map(([name, details]) => `
+                                        <div class="metadata-item">
+                                            <div class="class-name">${name}</div>
+                                            <div class="metadata-details">
+                                                ${details.line_range ? 
+                                                    `<span class="line-range">Lines: ${details.line_range[0]}-${details.line_range[1]}</span>` : 
+                                                    ''}
+                                                ${details.methods?.length > 0 ? 
+                                                    `<span class="methods">Methods: <code>${details.methods.join(', ')}</code></span>` : 
+                                                    ''}
+                                                ${details.bases?.length > 0 ? 
+                                                    `<span class="bases">Inherits: <code>${details.bases.join(', ')}</code></span>` : 
+                                                    ''}
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                        
+                        <!-- Imports Section -->
+                        ${(info.imports?.length > 0 || Object.keys(info.from_imports || {}).length > 0) ? `
+                            <div class="metadata-section">
+                                <h4>Imports</h4>
+                                <div class="imports-grid">
+                                    ${info.imports?.length > 0 ? `
+                                        <div class="metadata-item">
+                                            <div class="import-type">Direct Imports</div>
+                                            <div class="import-list">
+                                                <code>${info.imports.join(', ')}</code>
+                                            </div>
+                                        </div>
+                                    ` : ''}
+                                    ${Object.keys(info.from_imports || {}).length > 0 ? `
+                                        <div class="metadata-item">
+                                            <div class="import-type">From Imports</div>
+                                            <div class="import-list">
+                                                ${Object.entries(info.from_imports).map(([module, names]) => `
+                                                    <div class="from-import">
+                                                        <code>from ${module} import ${names.join(', ')}</code>
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }
+            
+            html += '</div>';
+            return html;
+        }
+
+        async function submitQuery() {
+            const queryInput = document.getElementById('queryInput');
+            const queryButton = document.querySelector('.query-button');
+            const responseDiv = document.getElementById('queryResponse');
+            
+            // Get the query text
+            const query = queryInput.value.trim();
+            
+            if (!query) {
+                showToast('Please enter a question');
+                return;
+            }
+            
+            // Show loading state
+            queryButton.classList.add('loading');
+            queryButton.innerHTML = 'Processing<span class="loading-spinner"></span>';
+            responseDiv.style.display = 'none';
+            
+            try {
+                const response = await fetch('/query/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: query })
+                });
+                
+                const data = await response.json();
+                
+                // Display the response
+                responseDiv.textContent = data.response;
+                responseDiv.classList.add('has-response');
+                responseDiv.classList.remove('error');
+                responseDiv.style.display = 'block';
+                
+            } catch (error) {
+                console.error('Error:', error);
+                responseDiv.textContent = 'Error processing query. Please try again.';
+                responseDiv.classList.add('has-response', 'error');
+                responseDiv.style.display = 'block';
+            } finally {
+                // Reset button state
+                queryButton.classList.remove('loading');
+                queryButton.textContent = 'Ask Question';
+            }
+        }
+
+        // Add keyboard shortcut for query submission
+        document.getElementById('queryInput')?.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                e.preventDefault();
+                submitQuery();
+            }
+        });
+
+        // Add this helper function
+        function escapeHtml(unsafe) {
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
     </script>
 </body>
 </html>

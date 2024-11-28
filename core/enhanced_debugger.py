@@ -1,3 +1,20 @@
+"""
+enhanced_debugger.py
+
+This module contains the EnhancedDebugger class, which is responsible for generating a structured debugging plan based on the error type.
+
+"""
+
+# Filestructure:
+# coder_v2/
+#   main.py
+#   static/
+#   logs/
+#   utils/
+#   core/
+
+# File: core/enhanced_debugger.py
+
 import json
 import re
 from core.code_mapper import CodeMapper
@@ -10,12 +27,40 @@ from utils.sanitizer import clean_json
 
 
 class EnhancedDebugger:
+    """A class for generating structured debugging plans based on error types.
+
+    This class analyzes Python errors, generates debugging plans, and can handle package
+    installation for import-related errors.
+
+    Attributes:
+        code_mapper (CodeMapper): An instance of CodeMapper for code analysis.
+    """
 
     def __init__(self, code_mapper):
+        """Initialize the EnhancedDebugger.
+
+        Args:
+            code_mapper (CodeMapper): An instance of CodeMapper for code analysis.
+        """
         self.code_mapper = code_mapper
 
     def parse_error(self, code, error_message):
-        """Parse error message and generate debug plan."""
+        """Parse error message and generate a structured debug plan.
+
+        Args:
+            code (str): The Python code containing the error.
+            error_message (str): The error message to parse.
+
+        Returns:
+            dict: A dictionary containing error details with the following structure:
+                {
+                    'error_type': str,
+                    'missing_module': str,  # Only for package-related errors
+                    'root_cause': str,
+                    'action_required': str
+                }
+            Returns None if error_message is empty.
+        """
         if not error_message:
             return None
 
@@ -35,7 +80,21 @@ class EnhancedDebugger:
         # ... rest of your error parsing logic ...
 
     def parse_error_context(self, code, error_message):
-        """Extract relevant code context around the error line if applicable."""
+        """Extract relevant code context around the error line.
+
+        Args:
+            code (str): The Python code containing the error.
+            error_message (str): The error message containing line number information.
+
+        Returns:
+            dict: A dictionary containing the code context with the following structure:
+                {
+                    'has_code_context': bool,
+                    'error_line': int,  # Only if has_code_context is True
+                    'code_context': str,  # Only if has_code_context is True
+                    'context_start_line': int  # Only if has_code_context is True
+                }
+        """
         try:
             # Look for line number in common Python error formats
             line_match = re.search(r'line (\d+)', error_message)
@@ -63,7 +122,36 @@ class EnhancedDebugger:
 
 
     def get_debug_plan(self, code, error_details):
-        """Generate structured debugging plan based on error type."""
+        """Generate a structured debugging plan based on the error type.
+
+        This method analyzes the error, generates appropriate prompts for the AI model,
+        and handles package installation if necessary.
+
+        Args:
+            code (str): The Python code containing the error.
+            error_details (Union[str, dict]): Error details either as a JSON string or dictionary.
+
+        Returns:
+            dict: A debugging plan with varying structure based on error type:
+                For import errors:
+                {
+                    'error_type': str,
+                    'missing_package': str,
+                    'package_installation': dict,
+                    'verification_steps': list
+                }
+                For code errors:
+                {
+                    'error_type': str,
+                    'root_cause': str,
+                    'suggested_fixes': list,
+                    'verification_steps': list,
+                    'error_line': int  # Optional
+                }
+
+        Raises:
+            SecurityError: If an invalid package name is detected during installation.
+        """
         logger.info("Generating debug plan")
         error_info = json.loads(error_details) if isinstance(error_details, str) else error_details
         error_message = error_info.get("error", "")
@@ -186,7 +274,15 @@ class EnhancedDebugger:
         #     }
 
     def debug_and_fix(self, code, error_message):
-        """Attempt to debug and fix the code."""
+        """Attempt to debug and fix the code automatically.
+
+        Args:
+            code (str): The Python code to debug.
+            error_message (str): The error message to analyze.
+
+        Returns:
+            dict: Error details and suggested fixes from parse_error().
+        """
         error_details = self.parse_error(code, error_message)
         # Use an LLM to suggest changes or fix the code
         # LLM logic goes here, similar to the code modification in `modifier.py`

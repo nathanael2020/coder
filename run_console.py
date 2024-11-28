@@ -1,7 +1,27 @@
+"""
+
+run_console.py
+
+This module contains a console version of the API. It includes a main function to handle user requests and interact with the code generation, execution, and modification processes.
+The console version provides a simple text-based interface for users to generate, run, and modify code interactively.
+It is an alternative to the FastAPI version of the API.
+
+"""
+
+# Filestructure:
+# coder_v2/
+#   main.py
+#   static/
+#   logs/
+#   utils/
+#   core/
+
+# File: run_console.py
+
 import argparse
 from core.generator import generate_code
 from core.executor import execute_code, execute_solution
-from core.modifier import modify_code
+from core.code_modifier import modify_code
 from core.code_mapper import CodeMapper
 from core.enhanced_debugger import EnhancedDebugger
 from core.version_control import VersionControl

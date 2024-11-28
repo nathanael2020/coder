@@ -1,3 +1,20 @@
+"""
+environment.py
+
+This module contains functions for interacting with the environment, such as creating a new Git branch.
+
+"""
+
+# Filestructure:
+# coder_v2/
+#   main.py
+#   static/
+#   logs/
+#   utils/
+#   core/
+
+# File: utils/environment.py
+
 import subprocess
 
 def create_git_branch(branch_name):

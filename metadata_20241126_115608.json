@@ -1,0 +1,3658 @@
+{
+  "project": {
+    "name": "coder_v2",
+    "description": "Metadata for the project.",
+    "entry_points": [
+      "condense_metadata",
+      "strftime",
+      "main",
+      "write",
+      "print",
+      "map_codebase",
+      "now",
+      "iterative_codebase_description",
+      "dump",
+      "CodeMapper",
+      "get_code_map",
+      "get_chunks",
+      "save_metadata_to_file",
+      "dumps",
+      "open",
+      "map_directory_structure_with_cross_references"
+    ],
+    "themes": [],
+    "dependencies": [
+      "datetime",
+      "core.debugger",
+      "argparse",
+      "utils.search",
+      "utils.index",
+      "logging",
+      "shutil",
+      "fastapi.staticfiles",
+      "traceback",
+      "core.executor",
+      "git",
+      "dataclasses",
+      "core.enhanced_debugger",
+      "dotenv",
+      "json",
+      "core.version_control",
+      "core.generator",
+      "core.code_mapper",
+      "fastapi.middleware.cors",
+      "numpy",
+      "utils.config",
+      "ast",
+      "re",
+      "sys",
+      "utils.embeddings",
+      "pathlib",
+      "tempfile",
+      "logging.handlers",
+      "core.modifier",
+      "custom_mapper",
+      "pydantic",
+      "pytest",
+      "fastapi.responses",
+      "fastapi",
+      "core.codebase_routes",
+      "core.codebase_manager",
+      "docker",
+      "subprocess",
+      "faiss",
+      "platform",
+      "time",
+      "utils.logger",
+      "typing",
+      "openai",
+      "hashlib",
+      "os",
+      "utils.sanitizer"
+    ],
+    "modules": {},
+    "llm_summary": "LLM response placeholder"
+  },
+  "files": {
+    "run_console.py": {
+      "description": "run_console.py\n\nThis module contains a console version of the API. It includes a main function to handle user requests and interact with the code generation, execution, and modification processes.\nThe console version provides a simple text-based interface for users to generate, run, and modify code interactively.\nIt is an alternative to the FastAPI version of the API.",
+      "entry_points": [
+        "main",
+        "main"
+      ],
+      "themes": [],
+      "imports": [
+        "argparse",
+        "json",
+        "os",
+        "traceback",
+        "core.generator",
+        "core.executor",
+        "core.modifier",
+        "core.code_mapper",
+        "core.enhanced_debugger",
+        "core.version_control",
+        "utils.logger",
+        "utils.config"
+      ],
+      "classes": {},
+      "functions": {
+        "main": {
+          "line_range": [
+            35,
+            172
+          ],
+          "description": "",
+          "parameters": [],
+          "dependencies": [
+            "makedirs",
+            "extend",
+            "len",
+            "join",
+            "append",
+            "map_codebase",
+            "execute_solution",
+            "generate_code",
+            "commit_changes",
+            "EnhancedDebugger",
+            "write",
+            "VersionControl",
+            "input",
+            "lower",
+            "execute_code",
+            "replace",
+            "get",
+            "CodeMapper",
+            "error",
+            "dumps",
+            "open",
+            "info",
+            "modify_code",
+            "format_exc",
+            "str",
+            "create_branch",
+            "print"
+          ]
+        }
+      },
+      "has_main": true
+    },
+    "conftest.py": {
+      "description": "",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "os",
+        "sys"
+      ],
+      "classes": {},
+      "functions": {},
+      "has_main": false
+    },
+    "custom_mapper2.py": {
+      "description": "",
+      "entry_points": [
+        "map_directory_structure_with_cross_references",
+        "condense_metadata",
+        "iterative_codebase_description",
+        "open",
+        "dump",
+        "open",
+        "dump",
+        "open",
+        "write",
+        "strftime",
+        "strftime",
+        "strftime",
+        "now",
+        "now",
+        "now"
+      ],
+      "themes": [],
+      "imports": [
+        "os",
+        "json",
+        "ast",
+        "traceback",
+        "sys",
+        "hashlib",
+        "datetime",
+        "utils.config",
+        "utils.config"
+      ],
+      "classes": {
+        "LLMReflector": {
+          "line_range": [
+            106,
+            166
+          ],
+          "description": "",
+          "methods": {
+            "__init__": {
+              "line_range": [
+                107,
+                112
+              ],
+              "description": "",
+              "parameters": [
+                "self",
+                "metadata",
+                "condensed_meta_log"
+              ],
+              "dependencies": []
+            },
+            "reflect": {
+              "line_range": [
+                114,
+                133
+              ],
+              "description": "",
+              "parameters": [
+                "self",
+                "objective"
+              ],
+              "dependencies": [
+                "append",
+                "call_llm",
+                "process_response",
+                "dumps",
+                "print"
+              ]
+            },
+            "process_response": {
+              "line_range": [
+                135,
+                140
+              ],
+              "description": "",
+              "parameters": [
+                "self",
+                "response"
+              ],
+              "dependencies": [
+                "parse_requests"
+              ]
+            },
+            "parse_requests": {
+              "line_range": [
+                142,
+                145
+              ],
+              "description": "",
+              "parameters": [
+                "self",
+                "response"
+              ],
+              "dependencies": [
+                "split",
+                "strip"
+              ]
+            },
+            "fetch_information": {
+              "line_range": [
+                147,
+                152
+              ],
+              "description": "",
+              "parameters": [
+                "self",
+                "requests"
+              ],
+              "dependencies": []
+            },
+            "run": {
+              "line_range": [
+                154,
+                166
+              ],
+              "description": "",
+              "parameters": [
+                "self",
+                "objective"
+              ],
+              "dependencies": [
+                "fetch_information",
+                "reflect"
+              ]
+            }
+          }
+        }
+      },
+      "functions": {
+        "hash_content": {
+          "line_range": [
+            16,
+            17
+          ],
+          "description": "",
+          "parameters": [
+            "content"
+          ],
+          "dependencies": [
+            "sha256",
+            "hexdigest",
+            "encode"
+          ]
+        },
+        "call_llm": {
+          "line_range": [
+            21,
+            57
+          ],
+          "description": "Enhanced LLM caller with relevant context.",
+          "parameters": [
+            "prompt",
+            "context",
+            "metadata"
+          ],
+          "dependencies": [
+            "create",
+            "extract_relevant_metadata",
+            "dumps",
+            "print"
+          ]
+        },
+        "extract_relevant_metadata": {
+          "line_range": [
+            65,
+            76
+          ],
+          "description": "Extract only the relevant parts of metadata based on context.",
+          "parameters": [
+            "metadata",
+            "context"
+          ],
+          "dependencies": [
+            "get"
+          ]
+        },
+        "condense_metadata": {
+          "line_range": [
+            79,
+            103
+          ],
+          "description": "",
+          "parameters": [
+            "metadata"
+          ],
+          "dependencies": [
+            "items",
+            "get"
+          ]
+        },
+        "map_directory_structure_with_cross_references": {
+          "line_range": [
+            171,
+            221
+          ],
+          "description": "Map directory structure with cross-referencing.",
+          "parameters": [
+            "root_dir",
+            "ignore_files"
+          ],
+          "dependencies": [
+            "extract_metadata_from_file",
+            "set",
+            "endswith",
+            "extend",
+            "join",
+            "list",
+            "setdefault",
+            "basename",
+            "abspath",
+            "append",
+            "get",
+            "walk",
+            "relpath",
+            "items"
+          ]
+        },
+        "extract_dependencies": {
+          "line_range": [
+            225,
+            234
+          ],
+          "description": "Extract dependencies (function calls) from a node.",
+          "parameters": [
+            "node"
+          ],
+          "dependencies": [
+            "set",
+            "list",
+            "add",
+            "walk",
+            "isinstance"
+          ]
+        },
+        "extract_metadata_from_file": {
+          "line_range": [
+            237,
+            351
+          ],
+          "description": "Extract metadata for a single file.",
+          "parameters": [
+            "file_path"
+          ],
+          "dependencies": [
+            "str",
+            "get_docstring",
+            "read",
+            "getattr",
+            "append",
+            "walk",
+            "parse",
+            "hasattr",
+            "extract_dependencies",
+            "isinstance",
+            "open"
+          ]
+        },
+        "iterative_codebase_description": {
+          "line_range": [
+            356,
+            365
+          ],
+          "description": "",
+          "parameters": [
+            "metadata",
+            "condensed_meta_log"
+          ],
+          "dependencies": [
+            "run",
+            "print",
+            "dumps",
+            "LLMReflector"
+          ]
+        }
+      },
+      "has_main": true
+    },
+    "__init__.py": {
+      "description": "",
+      "entry_points": [],
+      "themes": [],
+      "imports": [],
+      "classes": {},
+      "functions": {},
+      "has_main": false
+    },
+    "custom_mapper.py": {
+      "description": "",
+      "entry_points": [
+        "map_directory_structure_with_cross_references",
+        "save_metadata_to_file",
+        "print",
+        "condense_metadata",
+        "iterative_codebase_description",
+        "print",
+        "open",
+        "write",
+        "strftime",
+        "now"
+      ],
+      "themes": [],
+      "imports": [
+        "os",
+        "openai",
+        "json",
+        "os",
+        "ast",
+        "json",
+        "ast",
+        "hashlib",
+        "datetime",
+        "utils.config",
+        "hashlib"
+      ],
+      "classes": {
+        "LLMReflector": {
+          "line_range": [
+            602,
+            684
+          ],
+          "description": "",
+          "methods": {
+            "__init__": {
+              "line_range": [
+                603,
+                608
+              ],
+              "description": "",
+              "parameters": [
+                "self",
+                "metadata",
+                "condensed_meta_log"
+              ],
+              "dependencies": []
+            },
+            "reflect": {
+              "line_range": [
+                610,
+                630
+              ],
+              "description": "Reflects on the given context to determine if enough information exists to meet the objective.",
+              "parameters": [
+                "self",
+                "objective",
+                "context"
+              ],
+              "dependencies": [
+                "append",
+                "call_llm",
+                "process_response"
+              ]
+            },
+            "process_response": {
+              "line_range": [
+                632,
+                640
+              ],
+              "description": "Processes the LLM's response to determine next steps.",
+              "parameters": [
+                "self",
+                "response"
+              ],
+              "dependencies": [
+                "parse_requests"
+              ]
+            },
+            "parse_requests": {
+              "line_range": [
+                642,
+                648
+              ],
+              "description": "Extracts specific additional information requests from the LLM's response.",
+              "parameters": [
+                "self",
+                "response"
+              ],
+              "dependencies": [
+                "split",
+                "strip"
+              ]
+            },
+            "fetch_information": {
+              "line_range": [
+                650,
+                657
+              ],
+              "description": "Fetches requested information from metadata or files.",
+              "parameters": [
+                "self",
+                "requests"
+              ],
+              "dependencies": [
+                "get"
+              ]
+            },
+            "run": {
+              "line_range": [
+                661,
+                684
+              ],
+              "description": "Executes the iterative reflection loop.",
+              "parameters": [
+                "self",
+                "objective"
+              ],
+              "dependencies": [
+                "fetch_information",
+                "list",
+                "keys",
+                "get",
+                "reflect"
+              ]
+            }
+          }
+        }
+      },
+      "functions": {
+        "chunk_file_syntax_aware": {
+          "line_range": [
+            20,
+            69
+          ],
+          "description": "Parse a Python file and chunk it by functions and classes.\n\nPerforms syntax-aware chunking of Python source code by identifying function and class\ndefinitions using the AST parser. Each chunk contains metadata about the code segment.\n\nArgs:\n    file_path (str): Path to the Python file to be chunked\n\nReturns:\n    List[Dict]: A list of chunks where each chunk contains:\n        - id: Unique hash of the chunk content\n        - type: Either \"class\" or \"function\"\n        - name: Name of the class or function\n        - content: Actual source code\n        - start_line: Starting line number\n        - end_line: Ending line number\n\nRaises:\n    ValueError: If there's a syntax error in the source file",
+          "parameters": [
+            "file_path"
+          ],
+          "dependencies": [
+            "hash_content",
+            "join",
+            "ValueError",
+            "read",
+            "max",
+            "getattr",
+            "append",
+            "walk",
+            "parse",
+            "splitlines",
+            "isinstance",
+            "open"
+          ]
+        },
+        "hash_content": {
+          "line_range": [
+            74,
+            84
+          ],
+          "description": "Generate a unique hash for a chunk of content using SHA-256.\n\nArgs:\n    content (str): The content to be hashed\n\nReturns:\n    str: Hexadecimal string representation of the SHA-256 hash",
+          "parameters": [
+            "content"
+          ],
+          "dependencies": [
+            "sha256",
+            "hexdigest",
+            "encode"
+          ]
+        },
+        "call_llm": {
+          "line_range": [
+            88,
+            124
+          ],
+          "description": "Enhanced LLM caller that includes relevant context from metadata.\n\nArgs:\n    prompt (str): The main prompt for the LLM\n    context (dict, optional): Specific context needed for this call\n    metadata (dict, optional): Condensed project metadata",
+          "parameters": [
+            "prompt",
+            "context",
+            "metadata"
+          ],
+          "dependencies": [
+            "extract_relevant_metadata",
+            "create",
+            "dumps",
+            "print"
+          ]
+        },
+        "extract_relevant_metadata": {
+          "line_range": [
+            126,
+            149
+          ],
+          "description": "Extract only the relevant parts of metadata based on context.\n\nArgs:\n    metadata (dict): Condensed project metadata\n    context (dict): Context specifying what metadata is needed",
+          "parameters": [
+            "metadata",
+            "context"
+          ],
+          "dependencies": [
+            "get"
+          ]
+        },
+        "extract_metadata_from_file": {
+          "line_range": [
+            151,
+            264
+          ],
+          "description": "Extract metadata for a single file.",
+          "parameters": [
+            "file_path"
+          ],
+          "dependencies": [
+            "str",
+            "get_docstring",
+            "read",
+            "basename",
+            "getattr",
+            "append",
+            "dumps",
+            "walk",
+            "parse",
+            "hasattr",
+            "extract_dependencies",
+            "isinstance",
+            "open"
+          ]
+        },
+        "extract_dependencies": {
+          "line_range": [
+            266,
+            275
+          ],
+          "description": "Extract dependencies (function calls) from a node.",
+          "parameters": [
+            "node"
+          ],
+          "dependencies": [
+            "set",
+            "list",
+            "add",
+            "walk",
+            "isinstance"
+          ]
+        },
+        "save_metadata_to_file": {
+          "line_range": [
+            350,
+            353
+          ],
+          "description": "Save metadata to a JSON file.",
+          "parameters": [
+            "metadata",
+            "output_file"
+          ],
+          "dependencies": [
+            "open",
+            "dump"
+          ]
+        },
+        "map_directory_structure_with_cross_references": {
+          "line_range": [
+            357,
+            407
+          ],
+          "description": "Map directory structure with cross-referencing.",
+          "parameters": [
+            "root_dir",
+            "ignore_files"
+          ],
+          "dependencies": [
+            "extract_metadata_from_file",
+            "set",
+            "endswith",
+            "extend",
+            "join",
+            "list",
+            "setdefault",
+            "basename",
+            "abspath",
+            "append",
+            "get",
+            "walk",
+            "relpath",
+            "items"
+          ]
+        },
+        "condense_metadata": {
+          "line_range": [
+            410,
+            458
+          ],
+          "description": "",
+          "parameters": [
+            "metadata"
+          ],
+          "dependencies": [
+            "split",
+            "len",
+            "append",
+            "get",
+            "items"
+          ]
+        },
+        "review_function": {
+          "line_range": [
+            461,
+            470
+          ],
+          "description": "Review a specific function with relevant context.",
+          "parameters": [
+            "file_path",
+            "function_name",
+            "metadata"
+          ],
+          "dependencies": [
+            "call_llm"
+          ]
+        },
+        "discuss_codebase": {
+          "line_range": [
+            472,
+            478
+          ],
+          "description": "Generate a high-level discussion of the codebase.",
+          "parameters": [
+            "metadata"
+          ],
+          "dependencies": [
+            "call_llm"
+          ]
+        },
+        "summarize_codebase": {
+          "line_range": [
+            482,
+            495
+          ],
+          "description": "",
+          "parameters": [
+            "metadata"
+          ],
+          "dependencies": [
+            "get"
+          ]
+        },
+        "extract_major_elements": {
+          "line_range": [
+            499,
+            517
+          ],
+          "description": "",
+          "parameters": [
+            "index"
+          ],
+          "dependencies": [
+            "append",
+            "extend",
+            "items",
+            "get"
+          ]
+        },
+        "interpret_intent": {
+          "line_range": [
+            520,
+            531
+          ],
+          "description": "",
+          "parameters": [
+            "summary",
+            "major_elements"
+          ],
+          "dependencies": [
+            "any",
+            "lower",
+            "get"
+          ]
+        },
+        "analyze_codebase": {
+          "line_range": [
+            535,
+            550
+          ],
+          "description": "",
+          "parameters": [
+            "index"
+          ],
+          "dependencies": [
+            "append",
+            "any",
+            "get",
+            "values"
+          ]
+        },
+        "describe_codebase": {
+          "line_range": [
+            554,
+            588
+          ],
+          "description": "",
+          "parameters": [
+            "metadata"
+          ],
+          "dependencies": [
+            "interpret_intent",
+            "join",
+            "analyze_codebase",
+            "extract_major_elements",
+            "summarize_codebase",
+            "get"
+          ]
+        },
+        "fetch_metadata": {
+          "line_range": [
+            592,
+            594
+          ],
+          "description": "Fetches specific keys from the metadata.",
+          "parameters": [
+            "metadata",
+            "keys"
+          ],
+          "dependencies": [
+            "get"
+          ]
+        },
+        "fetch_code_snippet": {
+          "line_range": [
+            596,
+            600
+          ],
+          "description": "Fetches a code snippet from a file.",
+          "parameters": [
+            "file_path",
+            "start_line",
+            "end_line"
+          ],
+          "dependencies": [
+            "readlines",
+            "open",
+            "join"
+          ]
+        },
+        "iterative_codebase_description": {
+          "line_range": [
+            692,
+            709
+          ],
+          "description": "",
+          "parameters": [
+            "metadata",
+            "condensed_meta_log"
+          ],
+          "dependencies": [
+            "run",
+            "print",
+            "LLMReflector"
+          ]
+        }
+      },
+      "has_main": true
+    },
+    "main.py": {
+      "description": "main.py\n\nThis module is the entry point for the API. It defines the FastAPI app and the endpoints \nfor code generation, execution, and modification. Importantly, it also initializes the \ncode mapper, debugger, version control, and other core components.\n\nIt is an alternative to run_console.py, providing a REST API for the API.\n\nComponents:\n    - FastAPI app initialization and middleware setup\n    - Static file serving\n    - Core service initialization (CodeMapper, EnhancedDebugger, VersionControl)\n    - Data models for requests/responses\n    - API endpoints for code generation, execution and modification",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "traceback",
+        "logging",
+        "re",
+        "os",
+        "fastapi",
+        "pydantic",
+        "core.generator",
+        "core.executor",
+        "core.modifier",
+        "utils.logger",
+        "core.code_mapper",
+        "core.enhanced_debugger",
+        "core.version_control",
+        "core.codebase_routes",
+        "fastapi.middleware.cors",
+        "fastapi.staticfiles",
+        "utils.config",
+        "typing",
+        "openai",
+        "utils.config",
+        "utils.search",
+        "typing",
+        "utils.index",
+        "utils.sanitizer"
+      ],
+      "classes": {
+        "CodeGenerationRequest": {
+          "line_range": [
+            76,
+            83
+          ],
+          "description": "Data model for code generation requests.\n\nAttributes:\n    request (str): The natural language request describing the code to be generated",
+          "methods": {}
+        },
+        "CodeExecutionRequest": {
+          "line_range": [
+            85,
+            94
+          ],
+          "description": "Data model for code execution requests.\n\nAttributes:\n    code (str): The code to be executed\n    timeout (Optional[int]): Maximum execution time in seconds, defaults to 10",
+          "methods": {}
+        },
+        "CodeModificationRequest": {
+          "line_range": [
+            96,
+            105
+          ],
+          "description": "Data model for code modification requests.\n\nAttributes:\n    code (str): The original code to be modified\n    modification (str): The natural language description of desired modifications",
+          "methods": {}
+        },
+        "RAGQueryRequest": {
+          "line_range": [
+            107,
+            114
+          ],
+          "description": "Data model for RAG-based code queries.\n\nAttributes:\n    query (str): The natural language query about the codebase",
+          "methods": {}
+        },
+        "ModifyRequest": {
+          "line_range": [
+            272,
+            277
+          ],
+          "description": "Request model for code modifications.",
+          "methods": {}
+        }
+      },
+      "functions": {
+        "execute_rag_flow": {
+          "line_range": [
+            133,
+            167
+          ],
+          "description": "",
+          "parameters": [
+            "user_query"
+          ],
+          "dependencies": [
+            "create",
+            "info",
+            "join",
+            "HTTPException",
+            "str",
+            "format",
+            "strip",
+            "search_code",
+            "error"
+          ]
+        }
+      },
+      "has_main": false
+    },
+    "core/code_mapper.py": {
+      "description": "code_mapper.py\n\nThis module contains the CodeMapper class, which is responsible for mapping the codebase into functions, classes, and dependencies,\nas well as facilitating NLP and LLM-driven code interactions.",
+      "entry_points": [
+        "CodeMapper",
+        "map_codebase",
+        "print",
+        "print",
+        "dumps",
+        "dumps",
+        "get_code_map",
+        "get_chunks"
+      ],
+      "themes": [],
+      "imports": [
+        "os",
+        "json",
+        "ast",
+        "hashlib",
+        "datetime",
+        "utils.config",
+        "pathlib",
+        "typing"
+      ],
+      "classes": {
+        "CodeMapper": {
+          "line_range": [
+            17,
+            332
+          ],
+          "description": "A class for analyzing and mapping code structure and dependencies.\n\nThis class provides functionality to analyze Python codebases, generate metadata,\nand map dependencies between files and functions.\n\nAttributes:\n    workspace_dir (str): Root directory of the codebase to analyze\n    ignore_dirs (set): Directories to ignore during analysis\n    ignore_files (set): Files to ignore during analysis",
+          "methods": {
+            "__init__": {
+              "line_range": [
+                29,
+                38
+              ],
+              "description": "Initialize CodeMapper with workspace directory.\n\nArgs:\n    workspace_dir (str): Path to the root directory of the codebase",
+              "parameters": [
+                "self",
+                "workspace_dir"
+              ],
+              "dependencies": []
+            },
+            "generate_metadata": {
+              "line_range": [
+                99,
+                179
+              ],
+              "description": "Generate metadata for all Python files in the workspace.",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": [
+                "info",
+                "parse",
+                "endswith",
+                "len",
+                "str",
+                "get_docstring",
+                "_get_decorator_str",
+                "Path",
+                "read",
+                "append",
+                "_get_base_str",
+                "walk",
+                "relative_to",
+                "hasattr",
+                "error",
+                "isinstance",
+                "open"
+              ]
+            },
+            "_get_decorator_str": {
+              "line_range": [
+                181,
+                186
+              ],
+              "description": "Convert decorator AST node to string representation.",
+              "parameters": [
+                "self",
+                "node"
+              ],
+              "dependencies": [
+                "str",
+                "unparse"
+              ]
+            },
+            "_get_base_str": {
+              "line_range": [
+                188,
+                193
+              ],
+              "description": "Convert base class AST node to string representation.",
+              "parameters": [
+                "self",
+                "node"
+              ],
+              "dependencies": [
+                "str",
+                "unparse"
+              ]
+            },
+            "extract_metadata_from_file": {
+              "line_range": [
+                195,
+                255
+              ],
+              "description": "Extract metadata from a single Python file.\n\nArgs:\n    file_path (str): Path to the Python file\n    \nReturns:\n    dict: File metadata including classes, functions, and dependencies",
+              "parameters": [
+                "self",
+                "file_path"
+              ],
+              "dependencies": [
+                "extend",
+                "str",
+                "get_docstring",
+                "read",
+                "append",
+                "_process_function",
+                "walk",
+                "parse",
+                "_process_class",
+                "error",
+                "isinstance",
+                "open"
+              ]
+            },
+            "_process_class": {
+              "line_range": [
+                257,
+                274
+              ],
+              "description": "Process a class definition node.\n\nArgs:\n    node (ast.ClassDef): Class definition AST node\n    \nReturns:\n    dict: Class metadata including methods and dependencies",
+              "parameters": [
+                "self",
+                "node"
+              ],
+              "dependencies": [
+                "getattr",
+                "_process_function",
+                "get_docstring",
+                "isinstance"
+              ]
+            },
+            "_process_function": {
+              "line_range": [
+                276,
+                290
+              ],
+              "description": "Process a function definition node.\n\nArgs:\n    node (ast.FunctionDef): Function definition AST node\n    \nReturns:\n    dict: Function metadata including parameters and dependencies",
+              "parameters": [
+                "self",
+                "node"
+              ],
+              "dependencies": [
+                "getattr",
+                "_extract_dependencies",
+                "get_docstring"
+              ]
+            },
+            "_extract_dependencies": {
+              "line_range": [
+                292,
+                308
+              ],
+              "description": "Extract function call dependencies from an AST node.\n\nArgs:\n    node (ast.AST): AST node to analyze\n    \nReturns:\n    list: List of function names called within the node",
+              "parameters": [
+                "self",
+                "node"
+              ],
+              "dependencies": [
+                "set",
+                "list",
+                "add",
+                "walk",
+                "isinstance"
+              ]
+            },
+            "extract_imports": {
+              "line_range": [
+                310,
+                332
+              ],
+              "description": "Extract imports from a Python file.\n\nArgs:\n    file_path (str): Path to the Python file\n    \nReturns:\n    list: List of imported module names",
+              "parameters": [
+                "self",
+                "file_path"
+              ],
+              "dependencies": [
+                "extend",
+                "read",
+                "append",
+                "walk",
+                "parse",
+                "error",
+                "isinstance",
+                "open"
+              ]
+            }
+          }
+        }
+      },
+      "functions": {},
+      "has_main": true
+    },
+    "core/tester.py": {
+      "description": "tester.py\n\nThis module contains functionality for automatically generating unit tests for Python code.\n\nFunctions:\n    generate_tests: Generates unit test skeletons for all functions in the provided code.\n\nDependencies:\n    - ast: For parsing and analyzing Python code structure",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "ast"
+      ],
+      "classes": {},
+      "functions": {
+        "generate_tests": {
+          "line_range": [
+            14,
+            52
+          ],
+          "description": "Generate unit test skeletons for all functions in the provided code.\n\nThis function parses Python code using the ast module and creates test function\ntemplates for each function definition found in the code. The generated tests\nfollow the naming convention 'test_<function_name>'.\n\nArgs:\n    code (str): The source code to generate tests for. Should be valid Python code.\n\nReturns:\n    str: A string containing the generated test code, with one test function per\n         function found in the input code. Each test function contains a TODO\n         comment and a pass statement.\n\nExample:\n    >>> code = '''\n    ... def add(a, b):\n    ...     return a + b\n    ... '''\n    >>> print(generate_tests(code))\n    def test_add():\n        # TODO: Implement test for add\n        pass\n\nNote:\n    - The generated tests are skeleton implementations that need to be filled in\n    - Test names are automatically prefixed with 'test_' to be recognized by pytest\n    - Each generated test includes a TODO comment indicating what needs to be tested",
+          "parameters": [
+            "code"
+          ],
+          "dependencies": [
+            "join",
+            "append",
+            "walk",
+            "parse",
+            "isinstance"
+          ]
+        }
+      },
+      "has_main": false
+    },
+    "core/modifier.py": {
+      "description": "modifier.py\n\nThis module contains the Modifier class, which is responsible for modifying existing code using LLM.\n\nClasses:\n    None\n\nFunctions:\n    modify_code: Modifies existing Python code using OpenAI's GPT model based on user requests.\n\nDependencies:\n    - openai: For interacting with OpenAI's API\n    - dotenv: For loading environment variables\n    - utils.sanitizer: For cleaning code output\n    - utils.config: For logging configuration",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "traceback",
+        "os",
+        "ast",
+        "openai",
+        "dotenv",
+        "utils.sanitizer",
+        "utils.config",
+        "dataclasses",
+        "typing",
+        "utils.search"
+      ],
+      "classes": {
+        "ModificationContext": {
+          "line_range": [
+            48,
+            54
+          ],
+          "description": "",
+          "methods": {}
+        },
+        "CodeModifier": {
+          "line_range": [
+            56,
+            253
+          ],
+          "description": "",
+          "methods": {
+            "__init__": {
+              "line_range": [
+                57,
+                59
+              ],
+              "description": "",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": []
+            },
+            "_gather_initial_context": {
+              "line_range": [
+                61,
+                77
+              ],
+              "description": "Gather initial context including related files and dependencies.",
+              "parameters": [
+                "self",
+                "original_code",
+                "request",
+                "filepath"
+              ],
+              "dependencies": [
+                "search_code",
+                "info",
+                "ModificationContext",
+                "_analyze_dependencies"
+              ]
+            },
+            "_analyze_dependencies": {
+              "line_range": [
+                79,
+                105
+              ],
+              "description": "Analyze code dependencies and find related files.",
+              "parameters": [
+                "self",
+                "code",
+                "filepath"
+              ],
+              "dependencies": [
+                "set",
+                "extend",
+                "list",
+                "add",
+                "search_code",
+                "get",
+                "walk",
+                "parse",
+                "error",
+                "isinstance",
+                "_extract_imports"
+              ]
+            },
+            "_extract_imports": {
+              "line_range": [
+                107,
+                113
+              ],
+              "description": "Extract import names from AST node.",
+              "parameters": [
+                "self",
+                "node"
+              ],
+              "dependencies": [
+                "isinstance"
+              ]
+            },
+            "_evaluate_modification": {
+              "line_range": [
+                115,
+                152
+              ],
+              "description": "Evaluate if the modification meets the requirements.",
+              "parameters": [
+                "self",
+                "original",
+                "modified",
+                "request"
+              ],
+              "dependencies": [
+                "create",
+                "str",
+                "startswith",
+                "strip",
+                "error"
+              ]
+            },
+            "modify_code": {
+              "line_range": [
+                154,
+                194
+              ],
+              "description": "Iteratively modify code with self-evaluation and context refinement.",
+              "parameters": [
+                "self",
+                "original_code",
+                "modification_request",
+                "filepath"
+              ],
+              "dependencies": [
+                "_evaluate_modification",
+                "info",
+                "range",
+                "_generate_modification",
+                "_build_context_prompt",
+                "warning",
+                "_gather_initial_context",
+                "error"
+              ]
+            },
+            "_build_context_prompt": {
+              "line_range": [
+                196,
+                216
+              ],
+              "description": "Build comprehensive context prompt including related files and dependencies.",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": [
+                "append",
+                "join"
+              ]
+            },
+            "_generate_modification": {
+              "line_range": [
+                218,
+                253
+              ],
+              "description": "Generate code modification with full context.",
+              "parameters": [
+                "self",
+                "context_str"
+              ],
+              "dependencies": [
+                "create",
+                "clean_code"
+              ]
+            }
+          }
+        }
+      },
+      "functions": {},
+      "has_main": false
+    },
+    "core/__init__.py": {
+      "description": "",
+      "entry_points": [],
+      "themes": [],
+      "imports": [],
+      "classes": {},
+      "functions": {},
+      "has_main": false
+    },
+    "core/debugger.py": {
+      "description": "debugger.py\n\nThis module contains the debugger functions for the API. It includes the parse_error_context function to extract relevant code context around the error line, and the get_debug_plan function to generate a structured debugging plan based on the error type.",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "json",
+        "sys",
+        "traceback",
+        "subprocess",
+        "re",
+        "utils.sanitizer",
+        "utils.config"
+      ],
+      "classes": {},
+      "functions": {
+        "parse_error_context": {
+          "line_range": [
+            27,
+            52
+          ],
+          "description": "Extract relevant code context around the error line if applicable.",
+          "parameters": [
+            "code",
+            "error_message"
+          ],
+          "dependencies": [
+            "min",
+            "split",
+            "len",
+            "join",
+            "int",
+            "format_exc",
+            "str",
+            "max",
+            "group",
+            "search",
+            "error",
+            "print"
+          ]
+        },
+        "get_debug_plan": {
+          "line_range": [
+            55,
+            166
+          ],
+          "description": "Generate structured debugging plan based on error type.",
+          "parameters": [
+            "code",
+            "error_details",
+            "logger"
+          ],
+          "dependencies": [
+            "len",
+            "join",
+            "debug",
+            "append",
+            "create",
+            "run",
+            "chr",
+            "split",
+            "SecurityError",
+            "parse_error_context",
+            "input",
+            "all",
+            "lower",
+            "get",
+            "isalnum",
+            "error",
+            "info",
+            "loads",
+            "clean_json",
+            "any",
+            "isinstance",
+            "print"
+          ]
+        }
+      },
+      "has_main": false
+    },
+    "core/generator.py": {
+      "description": "generator.py\n\nGenerator module for code generation from natural language requests.\n\nThis module provides functionality to generate Python code from user requests using\nOpenAI's GPT models. It handles the communication with the OpenAI API, processes\nthe responses, and ensures proper error handling.\n\nAttributes:\n    None\n\nDependencies:\n    - openai: For API communication with OpenAI\n    - utils.sanitizer: For cleaning generated code\n    - utils.config: For client configuration and logging",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "traceback",
+        "os",
+        "openai",
+        "utils.sanitizer",
+        "utils.config"
+      ],
+      "classes": {},
+      "functions": {
+        "generate_code": {
+          "line_range": [
+            35,
+            87
+          ],
+          "description": "Generate Python code from a natural language request using OpenAI's GPT model.\n\nThis function takes a natural language description of desired functionality and\ngenerates corresponding Python code using OpenAI's API. It includes error handling,\nlogging, and code sanitization.\n\nArgs:\n    user_request (str): A natural language description of the code to be generated.\n        Example: \"create a function that sorts a list of numbers\"\n\nReturns:\n    str: The generated Python code, cleaned and formatted.\n\nRaises:\n    RuntimeError: If code generation fails for any reason (API errors, invalid responses, etc.).\n        The error message will include the original exception details.\n\nExample:\n    >>> code = generate_code(\"create a function to calculate fibonacci numbers\")\n    >>> print(code)\n    def fibonacci(n):\n        if n <= 1:\n            return n\n        return fibonacci(n-1) + fibonacci(n-2)",
+          "parameters": [
+            "user_request"
+          ],
+          "dependencies": [
+            "create",
+            "info",
+            "RuntimeError",
+            "format_exc",
+            "str",
+            "clean_code",
+            "error",
+            "print"
+          ]
+        }
+      },
+      "has_main": false
+    },
+    "core/version_control.py": {
+      "description": "version_control.py\n\nThis module contains the VersionControl class, which is responsible for managing Git operations such as creating branches, committing changes, and merging branches.",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "subprocess"
+      ],
+      "classes": {
+        "VersionControl": {
+          "line_range": [
+            20,
+            35
+          ],
+          "description": "",
+          "methods": {
+            "create_branch": {
+              "line_range": [
+                21,
+                24
+              ],
+              "description": "Create a new Git branch.",
+              "parameters": [
+                "self",
+                "branch_name"
+              ],
+              "dependencies": []
+            },
+            "commit_changes": {
+              "line_range": [
+                25,
+                29
+              ],
+              "description": "Commit changes to the current branch.",
+              "parameters": [
+                "self",
+                "message"
+              ],
+              "dependencies": []
+            },
+            "merge_branch": {
+              "line_range": [
+                31,
+                35
+              ],
+              "description": "Merge a branch into the main branch.",
+              "parameters": [
+                "self",
+                "branch_name"
+              ],
+              "dependencies": []
+            }
+          }
+        }
+      },
+      "functions": {},
+      "has_main": false
+    },
+    "core/enhanced_debugger.py": {
+      "description": "enhanced_debugger.py\n\nThis module contains the EnhancedDebugger class, which is responsible for generating a structured debugging plan based on the error type.",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "json",
+        "re",
+        "traceback",
+        "subprocess",
+        "sys",
+        "core.code_mapper",
+        "utils.config",
+        "utils.config",
+        "utils.sanitizer"
+      ],
+      "classes": {
+        "EnhancedDebugger": {
+          "line_range": [
+            29,
+            289
+          ],
+          "description": "A class for generating structured debugging plans based on error types.\n\nThis class analyzes Python errors, generates debugging plans, and can handle package\ninstallation for import-related errors.\n\nAttributes:\n    code_mapper (CodeMapper): An instance of CodeMapper for code analysis.",
+          "methods": {
+            "__init__": {
+              "line_range": [
+                39,
+                45
+              ],
+              "description": "Initialize the EnhancedDebugger.\n\nArgs:\n    code_mapper (CodeMapper): An instance of CodeMapper for code analysis.",
+              "parameters": [
+                "self",
+                "code_mapper"
+              ],
+              "dependencies": []
+            },
+            "parse_error": {
+              "line_range": [
+                47,
+                78
+              ],
+              "description": "Parse error message and generate a structured debug plan.\n\nArgs:\n    code (str): The Python code containing the error.\n    error_message (str): The error message to parse.\n\nReturns:\n    dict: A dictionary containing error details with the following structure:\n        {\n            'error_type': str,\n            'missing_module': str,  # Only for package-related errors\n            'root_cause': str,\n            'action_required': str\n        }\n    Returns None if error_message is empty.",
+              "parameters": [
+                "self",
+                "code",
+                "error_message"
+              ],
+              "dependencies": [
+                "search",
+                "group"
+              ]
+            },
+            "parse_error_context": {
+              "line_range": [
+                82,
+                121
+              ],
+              "description": "Extract relevant code context around the error line.\n\nArgs:\n    code (str): The Python code containing the error.\n    error_message (str): The error message containing line number information.\n\nReturns:\n    dict: A dictionary containing the code context with the following structure:\n        {\n            'has_code_context': bool,\n            'error_line': int,  # Only if has_code_context is True\n            'code_context': str,  # Only if has_code_context is True\n            'context_start_line': int  # Only if has_code_context is True\n        }",
+              "parameters": [
+                "self",
+                "code",
+                "error_message"
+              ],
+              "dependencies": [
+                "min",
+                "split",
+                "len",
+                "join",
+                "int",
+                "format_exc",
+                "str",
+                "max",
+                "group",
+                "search",
+                "error",
+                "print"
+              ]
+            },
+            "get_debug_plan": {
+              "line_range": [
+                124,
+                264
+              ],
+              "description": "Generate a structured debugging plan based on the error type.\n\nThis method analyzes the error, generates appropriate prompts for the AI model,\nand handles package installation if necessary.\n\nArgs:\n    code (str): The Python code containing the error.\n    error_details (Union[str, dict]): Error details either as a JSON string or dictionary.\n\nReturns:\n    dict: A debugging plan with varying structure based on error type:\n        For import errors:\n        {\n            'error_type': str,\n            'missing_package': str,\n            'package_installation': dict,\n            'verification_steps': list\n        }\n        For code errors:\n        {\n            'error_type': str,\n            'root_cause': str,\n            'suggested_fixes': list,\n            'verification_steps': list,\n            'error_line': int  # Optional\n        }\n\nRaises:\n    SecurityError: If an invalid package name is detected during installation.",
+              "parameters": [
+                "self",
+                "code",
+                "error_details"
+              ],
+              "dependencies": [
+                "len",
+                "join",
+                "debug",
+                "append",
+                "create",
+                "run",
+                "chr",
+                "split",
+                "SecurityError",
+                "parse_error_context",
+                "input",
+                "all",
+                "lower",
+                "get",
+                "isalnum",
+                "error",
+                "info",
+                "loads",
+                "clean_json",
+                "any",
+                "isinstance",
+                "print"
+              ]
+            },
+            "debug_and_fix": {
+              "line_range": [
+                276,
+                289
+              ],
+              "description": "Attempt to debug and fix the code automatically.\n\nArgs:\n    code (str): The Python code to debug.\n    error_message (str): The error message to analyze.\n\nReturns:\n    dict: Error details and suggested fixes from parse_error().",
+              "parameters": [
+                "self",
+                "code",
+                "error_message"
+              ],
+              "dependencies": [
+                "parse_error"
+              ]
+            }
+          }
+        }
+      },
+      "functions": {},
+      "has_main": false
+    },
+    "core/concierge.py": {
+      "description": "concierge.py\n\nThis module contains the Concierge class, which is responsible for managing the codebase and providing information about the codebase to the user.",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "json",
+        "core.code_mapper"
+      ],
+      "classes": {
+        "CodeConcierge": {
+          "line_range": [
+            21,
+            124
+          ],
+          "description": "A class that manages and provides information about the codebase.\n\nThe CodeConcierge acts as a central point for accessing information about the code structure,\nincluding functions, classes, and dependencies. It maintains a code map that can be loaded\nfrom disk or generated on demand.\n\nAttributes:\n    code_mapper (CodeMapper): An instance of CodeMapper used to analyze the codebase\n    code_map (dict): A dictionary containing the mapped codebase information including:\n        - functions: Dict mapping function names to their metadata\n        - classes: Dict mapping class names to their metadata\n        - dependencies: Dict of project dependencies\n\nExample:\n    >>> mapper = CodeMapper(root_directory=\".\")\n    >>> concierge = CodeConcierge(mapper)\n    >>> print(concierge.describe_function(\"my_function\"))",
+          "methods": {
+            "__init__": {
+              "line_range": [
+                42,
+                50
+              ],
+              "description": "Initialize the CodeConcierge with a CodeMapper instance.\n\nArgs:\n    code_mapper (CodeMapper): An instance of CodeMapper used to analyze the codebase",
+              "parameters": [
+                "self",
+                "code_mapper"
+              ],
+              "dependencies": [
+                "load_code_map"
+              ]
+            },
+            "load_code_map": {
+              "line_range": [
+                52,
+                68
+              ],
+              "description": "Load the existing code map from disk or generate a new one if none exists.\n\nThe code map is loaded from 'code_map.json' if it exists. Otherwise, it triggers\nthe CodeMapper to analyze the codebase and generate a new map.\n\nRaises:\n    FileNotFoundError: Handled internally - triggers new map generation\n    JSONDecodeError: Could occur if code_map.json is corrupted",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": [
+                "load",
+                "get_code_map",
+                "map_codebase",
+                "open"
+              ]
+            },
+            "describe_function": {
+              "line_range": [
+                70,
+                89
+              ],
+              "description": "Get a description of a specific function's location and details.\n\nArgs:\n    function_name (str): Name of the function to describe\n\nReturns:\n    str: A formatted string describing the function's location and details,\n        or an error message if the function is not found\n\nExample:\n    >>> concierge.describe_function(\"parse_error\")\n    \"Function 'parse_error' is defined in file 'core/error_handler.py', starting at line 42.\"",
+              "parameters": [
+                "self",
+                "function_name"
+              ],
+              "dependencies": []
+            },
+            "describe_class": {
+              "line_range": [
+                91,
+                110
+              ],
+              "description": "Get a description of a specific class's location and details.\n\nArgs:\n    class_name (str): Name of the class to describe\n\nReturns:\n    str: A formatted string describing the class's location and details,\n        or an error message if the class is not found\n\nExample:\n    >>> concierge.describe_class(\"CodeConcierge\")\n    \"Class 'CodeConcierge' is defined in file 'core/concierge.py', starting at line 15.\"",
+              "parameters": [
+                "self",
+                "class_name"
+              ],
+              "dependencies": []
+            },
+            "list_dependencies": {
+              "line_range": [
+                112,
+                124
+              ],
+              "description": "Get a list of all dependencies used in the codebase.\n\nReturns:\n    str: A formatted string listing all dependencies found in the codebase\n\nExample:\n    >>> concierge.list_dependencies()\n    \"The codebase has the following dependencies: json, os, subprocess\"",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": [
+                "keys",
+                "join"
+              ]
+            }
+          }
+        }
+      },
+      "functions": {},
+      "has_main": false
+    },
+    "core/error_handler.py": {
+      "description": "error_handler.py\n\nThis module contains the error handling functions for the API. It includes the parse_error_context function to extract relevant code context around the error line, and the get_debug_plan function to generate a structured debugging plan based on the error type.",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "re",
+        "json"
+      ],
+      "classes": {},
+      "functions": {
+        "parse_error_context": {
+          "line_range": [
+            21,
+            40
+          ],
+          "description": "Extract relevant code context around the error line if applicable.",
+          "parameters": [
+            "code",
+            "error_message"
+          ],
+          "dependencies": [
+            "min",
+            "split",
+            "len",
+            "join",
+            "int",
+            "max",
+            "group",
+            "search"
+          ]
+        },
+        "get_debug_plan": {
+          "line_range": [
+            42,
+            69
+          ],
+          "description": "Generate structured debugging plan based on error type.",
+          "parameters": [
+            "code",
+            "error_details",
+            "client",
+            "logger"
+          ],
+          "dependencies": [
+            "create",
+            "info",
+            "str",
+            "loads",
+            "error",
+            "get",
+            "any",
+            "isinstance"
+          ]
+        }
+      },
+      "has_main": false
+    },
+    "core/codebase_routes.py": {
+      "description": "",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "tempfile",
+        "shutil",
+        "json",
+        "fastapi",
+        "fastapi.responses",
+        "pydantic",
+        "typing",
+        "pathlib",
+        "datetime",
+        "core.codebase_manager",
+        "utils.config"
+      ],
+      "classes": {
+        "CodebaseRequest": {
+          "line_range": [
+            15,
+            18
+          ],
+          "description": "",
+          "methods": {}
+        }
+      },
+      "functions": {},
+      "has_main": false
+    },
+    "core/codebase_manager.py": {
+      "description": "",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "git",
+        "tempfile",
+        "shutil",
+        "os",
+        "json",
+        "docker",
+        "ast",
+        "traceback",
+        "pathlib",
+        "git",
+        "typing",
+        "datetime",
+        "core.code_mapper",
+        "utils.config",
+        "typing",
+        "utils.index"
+      ],
+      "classes": {
+        "CodebaseManager": {
+          "line_range": [
+            19,
+            605
+          ],
+          "description": "Manages codebase analysis, mapping, and modifications.",
+          "methods": {
+            "__init__": {
+              "line_range": [
+                22,
+                39
+              ],
+              "description": "Initialize the CodebaseManager with sandbox workspace.",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": [
+                "strftime",
+                "str",
+                "mkdir",
+                "IndexManager",
+                "Path",
+                "now",
+                "CodeMapper"
+              ]
+            },
+            "import_codebase": {
+              "line_range": [
+                41,
+                70
+              ],
+              "description": "Import codebase from git URL or local directory.",
+              "parameters": [
+                "self",
+                "source"
+              ],
+              "dependencies": [
+                "info",
+                "_clone_repository",
+                "get_index_manager",
+                "str",
+                "startswith",
+                "_copy_local_directory",
+                "Path",
+                "full_reindex",
+                "error"
+              ]
+            },
+            "_clone_repository": {
+              "line_range": [
+                72,
+                111
+              ],
+              "description": "Clone a git repository to the workspace.",
+              "parameters": [
+                "self",
+                "git_url"
+              ],
+              "dependencies": [
+                "info",
+                "split",
+                "ValueError",
+                "clone_from",
+                "remote",
+                "replace",
+                "Repo",
+                "_save_repo_info",
+                "exists",
+                "error",
+                "pull"
+              ]
+            },
+            "_save_repo_info": {
+              "line_range": [
+                113,
+                140
+              ],
+              "description": "Save repository information for future reference.",
+              "parameters": [
+                "self",
+                "git_url",
+                "repo_name",
+                "repo"
+              ],
+              "dependencies": [
+                "set",
+                "isoformat",
+                "len",
+                "list",
+                "now",
+                "iter_commits",
+                "dump",
+                "error",
+                "open"
+              ]
+            },
+            "_copy_local_directory": {
+              "line_range": [
+                142,
+                165
+              ],
+              "description": "Copy local directory to workspace.",
+              "parameters": [
+                "self",
+                "source_dir"
+              ],
+              "dependencies": [
+                "FileNotFoundError",
+                "str",
+                "ignore_patterns",
+                "_save_import_info",
+                "exists",
+                "error",
+                "copytree"
+              ]
+            },
+            "_save_import_info": {
+              "line_range": [
+                167,
+                178
+              ],
+              "description": "Save information about imported local directory.",
+              "parameters": [
+                "self",
+                "source_path",
+                "import_name"
+              ],
+              "dependencies": [
+                "now",
+                "isoformat",
+                "open",
+                "dump"
+              ]
+            },
+            "modify_file": {
+              "line_range": [
+                180,
+                206
+              ],
+              "description": "Modify a file in the workspace.\n\nArgs:\n    file_path (str): Path to the file relative to workspace\n    new_content (str): New content for the file\n    \nReturns:\n    bool: True if modification was successful",
+              "parameters": [
+                "self",
+                "file_path",
+                "new_content"
+              ],
+              "dependencies": [
+                "with_suffix",
+                "FileNotFoundError",
+                "write",
+                "exists",
+                "copy2",
+                "error",
+                "open"
+              ]
+            },
+            "create_file": {
+              "line_range": [
+                208,
+                233
+              ],
+              "description": "Create a new file in the workspace.\n\nArgs:\n    file_path (str): Path to the new file relative to workspace\n    content (str): Content for the new file\n    \nReturns:\n    bool: True if file creation was successful",
+              "parameters": [
+                "self",
+                "file_path",
+                "content"
+              ],
+              "dependencies": [
+                "write",
+                "mkdir",
+                "FileExistsError",
+                "exists",
+                "error",
+                "open"
+              ]
+            },
+            "get_workspace_path": {
+              "line_range": [
+                235,
+                237
+              ],
+              "description": "Get the path to the current workspace.",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": []
+            },
+            "cleanup": {
+              "line_range": [
+                239,
+                250
+              ],
+              "description": "Clean up workspace directory.\n\nArgs:\n    keep_workspace (bool): If True, keeps the workspace directory",
+              "parameters": [
+                "self",
+                "keep_workspace"
+              ],
+              "dependencies": [
+                "info",
+                "error",
+                "rmtree"
+              ]
+            },
+            "analyze_codebase": {
+              "line_range": [
+                252,
+                388
+              ],
+              "description": "Analyze the codebase structure and dependencies.",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": [
+                "generate_metadata",
+                "len",
+                "join",
+                "Path",
+                "read",
+                "append",
+                "walk",
+                "Repo",
+                "get_file_tree",
+                "update",
+                "_validate_active_directory",
+                "list",
+                "iter_commits",
+                "exists",
+                "splitlines",
+                "_analyze_file_content",
+                "items",
+                "set",
+                "isoformat",
+                "get",
+                "relative_to",
+                "error",
+                "open",
+                "_analyze_python_file",
+                "info",
+                "is_dirty",
+                "format_exc",
+                "str",
+                "startswith"
+              ]
+            },
+            "_analyze_python_file": {
+              "line_range": [
+                390,
+                411
+              ],
+              "description": "Analyze a Python file for complexity metrics.",
+              "parameters": [
+                "self",
+                "file_path",
+                "analysis"
+              ],
+              "dependencies": [
+                "len",
+                "max",
+                "read",
+                "walk",
+                "parse",
+                "error",
+                "isinstance",
+                "open"
+              ]
+            },
+            "_analyze_file_content": {
+              "line_range": [
+                413,
+                439
+              ],
+              "description": "Analyze file content for detailed statistics.",
+              "parameters": [
+                "self",
+                "lines"
+              ],
+              "dependencies": [
+                "strip",
+                "len",
+                "startswith"
+              ]
+            },
+            "execute_code": {
+              "line_range": [
+                441,
+                473
+              ],
+              "description": "Execute code in a Docker container and return output.",
+              "parameters": [
+                "self",
+                "file_path"
+              ],
+              "dependencies": [
+                "run",
+                "decode",
+                "str",
+                "logs",
+                "from_env",
+                "error"
+              ]
+            },
+            "modify_and_execute": {
+              "line_range": [
+                475,
+                503
+              ],
+              "description": "Modify a file and execute it, returning results and stats.",
+              "parameters": [
+                "self",
+                "file_path",
+                "new_content"
+              ],
+              "dependencies": [
+                "isoformat",
+                "modify_file",
+                "str",
+                "execute_code",
+                "_generate_stats",
+                "Exception",
+                "now",
+                "error"
+              ]
+            },
+            "_get_directory_structure": {
+              "line_range": [
+                505,
+                525
+              ],
+              "description": "Get a nested dictionary representing the directory structure.",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": [
+                "add_path",
+                "endswith",
+                "join",
+                "list",
+                "Path",
+                "startswith",
+                "walk",
+                "relpath"
+              ]
+            },
+            "get_file_content": {
+              "line_range": [
+                527,
+                538
+              ],
+              "description": "Get content of a specific file from the workspace.",
+              "parameters": [
+                "self",
+                "file_path"
+              ],
+              "dependencies": [
+                "FileNotFoundError",
+                "read",
+                "exists",
+                "error",
+                "open"
+              ]
+            },
+            "get_file_tree": {
+              "line_range": [
+                540,
+                571
+              ],
+              "description": "Generate a hierarchical file tree structure.",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": [
+                "info",
+                "endswith",
+                "split",
+                "len",
+                "str",
+                "Path",
+                "startswith",
+                "add_to_tree",
+                "walk",
+                "relative_to",
+                "exists",
+                "error"
+              ]
+            },
+            "set_active_directory": {
+              "line_range": [
+                573,
+                592
+              ],
+              "description": "Set the active directory for indexing operations.\n\nArgs:\n    directory (Union[str, Path]): Directory path relative to workspace\n    \nReturns:\n    bool: True if directory was set successfully",
+              "parameters": [
+                "self",
+                "directory"
+              ],
+              "dependencies": [
+                "info",
+                "ValueError",
+                "Path",
+                "is_dir",
+                "exists",
+                "error"
+              ]
+            },
+            "get_active_directory": {
+              "line_range": [
+                594,
+                596
+              ],
+              "description": "Get the current active directory for indexing.",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": []
+            },
+            "_validate_active_directory": {
+              "line_range": [
+                598,
+                605
+              ],
+              "description": "Validate that an active directory has been set.\n\nRaises:\n    ValueError: If no active directory has been set",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": [
+                "ValueError"
+              ]
+            }
+          }
+        }
+      },
+      "functions": {},
+      "has_main": false
+    },
+    "core/executor.py": {
+      "description": "executor.py\n\nThis module contains the executor functions for the API. It includes the execute_code function to execute code in a controlled environment with configurable timeout, and the execute_solution function to execute the solutions proposed in the debug plan.",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "subprocess",
+        "os",
+        "platform",
+        "logging",
+        "sys",
+        "traceback",
+        "re",
+        "utils.config",
+        "utils.sanitizer",
+        "utils.config",
+        "core.debugger"
+      ],
+      "classes": {},
+      "functions": {
+        "execute_code": {
+          "line_range": [
+            47,
+            136
+          ],
+          "description": "Execute Python code in a controlled environment with configurable timeout.\n\nThis function executes the provided code in a sandbox directory with safety measures\nand timeout constraints. It captures both stdout and stderr, along with detailed\nerror information if execution fails.\n\nArgs:\n    code (str): The Python code to execute.\n    timeout (int, optional): Maximum execution time in seconds. Defaults to 10.\n        Set to None for no timeout.\n\nReturns:\n    dict: A dictionary containing execution results with the following structure:\n        On success:\n            {\n                \"success\": True,\n                \"output\": str  # Standard output from the code execution\n            }\n        On failure:\n            {\n                \"success\": False,\n                \"error\": {\n                    \"error\": str,  # Error message\n                    \"error_type\": str,  # Type of error (runtime_error/timeout_error)\n                    \"system_info\": {  # System information for debugging\n                        \"os\": str,\n                        \"python_version\": str,\n                        \"working_directory\": str\n                    },\n                    \"traceback\": str  # Full error traceback\n                }\n            }\n\nRaises:\n    OSError: If sandbox directory creation fails.\n    IOError: If writing to sandbox file fails.",
+          "parameters": [
+            "code",
+            "timeout"
+          ],
+          "dependencies": [
+            "system",
+            "info",
+            "makedirs",
+            "run",
+            "join",
+            "write",
+            "abspath",
+            "warning",
+            "getcwd",
+            "dirname",
+            "exists",
+            "python_version",
+            "open"
+          ]
+        }
+      },
+      "has_main": false
+    },
+    "tests/test_basic.py": {
+      "description": "",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "pytest"
+      ],
+      "classes": {},
+      "functions": {
+        "test_simple": {
+          "line_range": [
+            3,
+            4
+          ],
+          "description": "",
+          "parameters": [],
+          "dependencies": []
+        },
+        "test_addition": {
+          "line_range": [
+            6,
+            7
+          ],
+          "description": "",
+          "parameters": [],
+          "dependencies": []
+        }
+      },
+      "has_main": false
+    },
+    "tests/__init__.py": {
+      "description": "",
+      "entry_points": [],
+      "themes": [],
+      "imports": [],
+      "classes": {},
+      "functions": {},
+      "has_main": false
+    },
+    "tests/test_custom_mapper.py": {
+      "description": "",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "pytest",
+        "os",
+        "custom_mapper"
+      ],
+      "classes": {},
+      "functions": {
+        "sample_python_files": {
+          "line_range": [
+            11,
+            39
+          ],
+          "description": "Create a temporary directory with sample Python files",
+          "parameters": [
+            "tmp_path"
+          ],
+          "dependencies": [
+            "write_text"
+          ]
+        },
+        "test_extract_metadata": {
+          "line_range": [
+            59,
+            70
+          ],
+          "description": "Test metadata extraction from files",
+          "parameters": [
+            "sample_python_files"
+          ],
+          "dependencies": [
+            "str",
+            "extract_metadata_from_file"
+          ]
+        },
+        "test_map_codebase": {
+          "line_range": [
+            72,
+            87
+          ],
+          "description": "Test mapping the entire codebase",
+          "parameters": [
+            "sample_python_files"
+          ],
+          "dependencies": [
+            "all",
+            "set",
+            "len",
+            "str",
+            "basename",
+            "keys",
+            "map_codebase",
+            "values",
+            "isinstance"
+          ]
+        },
+        "test_map_codebase_ignores_files": {
+          "line_range": [
+            89,
+            99
+          ],
+          "description": "Test that mapping ignores specified files",
+          "parameters": [
+            "sample_python_files"
+          ],
+          "dependencies": [
+            "write_text",
+            "set",
+            "str",
+            "basename",
+            "keys",
+            "map_codebase"
+          ]
+        }
+      },
+      "has_main": false
+    },
+    "utils/config.py": {
+      "description": "config.py\n\nThis module contains the configuration for the API. It includes the OpenAI client, the logging setup, and the security error.\n\nKey Components:\n    - OpenAI client configuration\n    - Environment variable loading\n    - Logging setup\n    - Security error definition\n\nDependencies:\n    - openai: For API client\n    - python-dotenv: For environment variable management\n    - logging: For application logging",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "os",
+        "traceback",
+        "openai",
+        "dotenv",
+        "utils.logger"
+      ],
+      "classes": {
+        "SecurityError": {
+          "line_range": [
+            62,
+            74
+          ],
+          "description": "Custom exception for handling security-related errors in the application.\n\nThis exception should be raised when security violations occur, such as:\n    - Invalid authentication attempts\n    - Unauthorized access to protected resources\n    - Security policy violations\n    \nInherits from:\n    Exception: Base Python exception class",
+          "methods": {}
+        }
+      },
+      "functions": {},
+      "has_main": false
+    },
+    "utils/sanitizer.py": {
+      "description": "sanitizer.py\n\nThis module contains sanitization functions for ensuring safe code execution and JSON processing.\n\nKey Functions:\n    - clean_code: Sanitizes and validates Python code before execution\n    - clean_json: Cleans and extracts valid JSON from string input\n\nSecurity:\n    This module implements basic security measures to prevent execution of potentially\n    harmful code and ensure proper JSON formatting.",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "re",
+        "utils.config"
+      ],
+      "classes": {},
+      "functions": {
+        "clean_path": {
+          "line_range": [
+            19,
+            23
+          ],
+          "description": "Clean and sanitize a file path.",
+          "parameters": [
+            "path"
+          ],
+          "dependencies": [
+            "replace"
+          ]
+        },
+        "clean_code": {
+          "line_range": [
+            25,
+            52
+          ],
+          "description": "Sanitize and validate Python code before execution.\n\nThis function performs basic security validation by:\n    1. Removing Python code block markers\n    2. Checking for potentially dangerous operations\n    3. Stripping whitespace\n\nArgs:\n    code (str): Raw code string, potentially containing markdown code blocks\n    \nReturns:\n    str: Cleaned and validated code string\n    \nRaises:\n    SecurityError: If potentially unsafe operations are detected\n    \nExample:\n    >>> clean_code(\"```python\\nprint('hello')\\n```\")\n    \"print('hello')\"",
+          "parameters": [
+            "code"
+          ],
+          "dependencies": [
+            "SecurityError",
+            "any",
+            "strip",
+            "replace"
+          ]
+        },
+        "clean_json": {
+          "line_range": [
+            55,
+            81
+          ],
+          "description": "Clean JSON string by removing non-JSON content and comments.\n\nThis function:\n    1. Extracts JSON content from markdown code blocks\n    2. Removes single-line comments (// and #)\n    3. Removes multi-line comments (/* ... */)\n\nArgs:\n    json_string (str): Raw JSON string, potentially containing comments and markdown\n    \nReturns:\n    str: Cleaned JSON string ready for parsing\n    \nExample:\n    >>> clean_json(\"```json\\n{\\n  // comment\\n  \"key\": \"value\"\\n}\\n```\")\n    '\\n{\\n  \"key\": \"value\"\\n}\\n'",
+          "parameters": [
+            "json_string"
+          ],
+          "dependencies": [
+            "search",
+            "sub",
+            "group"
+          ]
+        }
+      },
+      "has_main": false
+    },
+    "utils/index.py": {
+      "description": "",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "os",
+        "faiss",
+        "numpy",
+        "json",
+        "time",
+        "traceback",
+        "utils.config",
+        "utils.config",
+        "utils.embeddings",
+        "datetime"
+      ],
+      "classes": {
+        "IndexManager": {
+          "line_range": [
+            15,
+            244
+          ],
+          "description": "",
+          "methods": {
+            "__init__": {
+              "line_range": [
+                17,
+                38
+              ],
+              "description": "Initialize IndexManager with workspace directory.\n\nArgs:\n    workspace_dir (str): Path to the workspace directory containing the codebase",
+              "parameters": [
+                "self",
+                "workspace_dir"
+              ],
+              "dependencies": [
+                "makedirs",
+                "info",
+                "join"
+              ]
+            },
+            "full_reindex": {
+              "line_range": [
+                40,
+                96
+              ],
+              "description": "Perform a full reindex of the entire codebase.",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": [
+                "info",
+                "endswith",
+                "join",
+                "save_index",
+                "relpath",
+                "read",
+                "add_to_index",
+                "warning",
+                "IndexFlatL2",
+                "walk",
+                "generate_embeddings",
+                "error",
+                "open",
+                "should_ignore_path"
+              ]
+            },
+            "index": {
+              "line_range": [
+                106,
+                109
+              ],
+              "description": "Set the FAISS index.",
+              "parameters": [
+                "self",
+                "value"
+              ],
+              "dependencies": []
+            },
+            "get_metadata": {
+              "line_range": [
+                111,
+                115
+              ],
+              "description": "Get the metadata for the index.",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": [
+                "load_index"
+              ]
+            },
+            "load_index": {
+              "line_range": [
+                117,
+                171
+              ],
+              "description": "Load both index and metadata from disk, or initialize new ones if they don't exist.",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": [
+                "info",
+                "read_index",
+                "len",
+                "ValueError",
+                "format_exc",
+                "IndexFlatL2",
+                "load",
+                "exists",
+                "error",
+                "open",
+                "print"
+              ]
+            },
+            "should_ignore_path": {
+              "line_range": [
+                173,
+                178
+              ],
+              "description": "Check if the given path should be ignored based on the IGNORE_PATHS list.",
+              "parameters": [
+                "self",
+                "path"
+              ],
+              "dependencies": [
+                "startswith"
+              ]
+            },
+            "clear_index": {
+              "line_range": [
+                180,
+                187
+              ],
+              "description": "Delete the FAISS index and metadata files if they exist, and reinitialize the index.",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": []
+            },
+            "add_to_index": {
+              "line_range": [
+                193,
+                207
+              ],
+              "description": "Add new embeddings and metadata to the index.",
+              "parameters": [
+                "self",
+                "embeddings",
+                "full_content",
+                "filename",
+                "filepath"
+              ],
+              "dependencies": [
+                "join",
+                "ValueError",
+                "add",
+                "abspath",
+                "append"
+              ]
+            },
+            "save_index": {
+              "line_range": [
+                209,
+                223
+              ],
+              "description": "Save both the FAISS index and metadata to disk.",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": [
+                "info",
+                "len",
+                "write_index",
+                "dump",
+                "error",
+                "open"
+              ]
+            },
+            "retrieve_vectors": {
+              "line_range": [
+                225,
+                230
+              ],
+              "description": "",
+              "parameters": [
+                "self",
+                "n"
+              ],
+              "dependencies": [
+                "min",
+                "range",
+                "zeros",
+                "reconstruct"
+              ]
+            },
+            "inspect_metadata": {
+              "line_range": [
+                232,
+                240
+              ],
+              "description": "",
+              "parameters": [
+                "self",
+                "n"
+              ],
+              "dependencies": [
+                "get_metadata",
+                "enumerate",
+                "print"
+              ]
+            },
+            "is_index_loaded": {
+              "line_range": [
+                242,
+                244
+              ],
+              "description": "Check if the index is currently loaded.",
+              "parameters": [
+                "self"
+              ],
+              "dependencies": []
+            }
+          }
+        }
+      },
+      "functions": {
+        "get_index_manager": {
+          "line_range": [
+            249,
+            270
+          ],
+          "description": "Get or create the singleton instance of IndexManager.\nIf watched_dir is provided, it will create a new instance with that directory.\n\nArgs:\n    watched_dir (str, optional): Directory to watch. Required for first creation\n                               or when switching workspaces.\n    \nReturns:\n    IndexManager: The singleton instance",
+          "parameters": [
+            "watched_dir"
+          ],
+          "dependencies": [
+            "ValueError",
+            "info",
+            "IndexManager"
+          ]
+        }
+      },
+      "has_main": false
+    },
+    "utils/security.py": {
+      "description": "security.py\n\nThis module will contain security-related functions for the API. It is a placeholder for future development.",
+      "entry_points": [],
+      "themes": [],
+      "imports": [],
+      "classes": {},
+      "functions": {},
+      "has_main": false
+    },
+    "utils/__init__.py": {
+      "description": "",
+      "entry_points": [],
+      "themes": [],
+      "imports": [],
+      "classes": {},
+      "functions": {},
+      "has_main": false
+    },
+    "utils/logger.py": {
+      "description": "logger.py\n\nLogger Configuration Module\n\nThis module provides logging setup functionality for the application. It configures both file\nand console logging with rotation capabilities to manage log file sizes.\n\nThe logger is configured to:\n- Write logs to both console and file\n- Rotate log files when they reach 1MB\n- Maintain 5 backup log files\n- Use UTF-8 encoding\n- Format logs with timestamp, level, and message",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "logging",
+        "os",
+        "logging.handlers"
+      ],
+      "classes": {},
+      "functions": {
+        "setup_logging": {
+          "line_range": [
+            32,
+            76
+          ],
+          "description": "Configure and initialize the application logger with both file and console handlers.\n\nCreates a rotating file handler that:\n- Maintains log files up to 1MB in size\n- Keeps 5 backup files\n- Appends to existing log files\n- Uses UTF-8 encoding\n\nReturns:\n    logging.Logger: Configured logger instance with both file and console handlers,\n                   formatted with timestamp, log level, and message.",
+          "parameters": [],
+          "dependencies": [
+            "makedirs",
+            "Formatter",
+            "StreamHandler",
+            "setFormatter",
+            "addHandler",
+            "setLevel",
+            "getLogger",
+            "RotatingFileHandler"
+          ]
+        }
+      },
+      "has_main": false
+    },
+    "utils/embeddings.py": {
+      "description": "",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "os",
+        "numpy",
+        "traceback",
+        "openai",
+        "utils.config"
+      ],
+      "classes": {},
+      "functions": {
+        "generate_embeddings": {
+          "line_range": [
+            15,
+            30
+          ],
+          "description": "Generate embeddings using the updated OpenAI API.",
+          "parameters": [
+            "text"
+          ],
+          "dependencies": [
+            "create",
+            "info",
+            "array",
+            "format_exc",
+            "reshape",
+            "error",
+            "astype"
+          ]
+        }
+      },
+      "has_main": false
+    },
+    "utils/environment.py": {
+      "description": "environment.py\n\nThis module contains functions for interacting with the environment, such as creating a new Git branch.",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "subprocess"
+      ],
+      "classes": {},
+      "functions": {
+        "create_git_branch": {
+          "line_range": [
+            20,
+            26
+          ],
+          "description": "Create a new Git branch.",
+          "parameters": [
+            "branch_name"
+          ],
+          "dependencies": [
+            "run"
+          ]
+        }
+      },
+      "has_main": false
+    },
+    "utils/search.py": {
+      "description": "",
+      "entry_points": [],
+      "themes": [],
+      "imports": [
+        "numpy",
+        "os",
+        "utils.index",
+        "utils.embeddings",
+        "utils.config"
+      ],
+      "classes": {},
+      "functions": {
+        "search_code": {
+          "line_range": [
+            7,
+            62
+          ],
+          "description": "Search the FAISS index using a text query.",
+          "parameters": [
+            "query",
+            "k"
+          ],
+          "dependencies": [
+            "min",
+            "len",
+            "ValueError",
+            "get_index_manager",
+            "str",
+            "is_index_loaded",
+            "warning",
+            "append",
+            "search",
+            "get_metadata",
+            "generate_embeddings",
+            "error",
+            "float",
+            "enumerate"
+          ]
+        }
+      },
+      "has_main": false
+    }
+  },
+  "cross_references": {
+    "call_graph": {
+      "main": [
+        "makedirs",
+        "extend",
+        "len",
+        "join",
+        "append",
+        "map_codebase",
+        "execute_solution",
+        "generate_code",
+        "commit_changes",
+        "EnhancedDebugger",
+        "write",
+        "VersionControl",
+        "input",
+        "lower",
+        "execute_code",
+        "replace",
+        "get",
+        "CodeMapper",
+        "error",
+        "dumps",
+        "open",
+        "info",
+        "modify_code",
+        "format_exc",
+        "str",
+        "create_branch",
+        "print"
+      ],
+      "hash_content": [
+        "sha256",
+        "hexdigest",
+        "encode",
+        "sha256",
+        "hexdigest",
+        "encode"
+      ],
+      "call_llm": [
+        "create",
+        "extract_relevant_metadata",
+        "dumps",
+        "print",
+        "extract_relevant_metadata",
+        "create",
+        "dumps",
+        "print"
+      ],
+      "extract_relevant_metadata": [
+        "get",
+        "get"
+      ],
+      "condense_metadata": [
+        "items",
+        "get",
+        "split",
+        "len",
+        "append",
+        "get",
+        "items"
+      ],
+      "map_directory_structure_with_cross_references": [
+        "extract_metadata_from_file",
+        "set",
+        "endswith",
+        "extend",
+        "join",
+        "list",
+        "setdefault",
+        "basename",
+        "abspath",
+        "append",
+        "get",
+        "walk",
+        "relpath",
+        "items",
+        "extract_metadata_from_file",
+        "set",
+        "endswith",
+        "extend",
+        "join",
+        "list",
+        "setdefault",
+        "basename",
+        "abspath",
+        "append",
+        "get",
+        "walk",
+        "relpath",
+        "items"
+      ],
+      "extract_dependencies": [
+        "set",
+        "list",
+        "add",
+        "walk",
+        "isinstance",
+        "set",
+        "list",
+        "add",
+        "walk",
+        "isinstance"
+      ],
+      "extract_metadata_from_file": [
+        "str",
+        "get_docstring",
+        "read",
+        "getattr",
+        "append",
+        "walk",
+        "parse",
+        "hasattr",
+        "extract_dependencies",
+        "isinstance",
+        "open",
+        "str",
+        "get_docstring",
+        "read",
+        "basename",
+        "getattr",
+        "append",
+        "dumps",
+        "walk",
+        "parse",
+        "hasattr",
+        "extract_dependencies",
+        "isinstance",
+        "open"
+      ],
+      "iterative_codebase_description": [
+        "run",
+        "print",
+        "dumps",
+        "LLMReflector",
+        "run",
+        "print",
+        "LLMReflector"
+      ],
+      "chunk_file_syntax_aware": [
+        "hash_content",
+        "join",
+        "ValueError",
+        "read",
+        "max",
+        "getattr",
+        "append",
+        "walk",
+        "parse",
+        "splitlines",
+        "isinstance",
+        "open"
+      ],
+      "save_metadata_to_file": [
+        "open",
+        "dump"
+      ],
+      "review_function": [
+        "call_llm"
+      ],
+      "discuss_codebase": [
+        "call_llm"
+      ],
+      "summarize_codebase": [
+        "get"
+      ],
+      "extract_major_elements": [
+        "append",
+        "extend",
+        "items",
+        "get"
+      ],
+      "interpret_intent": [
+        "any",
+        "lower",
+        "get"
+      ],
+      "analyze_codebase": [
+        "append",
+        "any",
+        "get",
+        "values"
+      ],
+      "describe_codebase": [
+        "interpret_intent",
+        "join",
+        "analyze_codebase",
+        "extract_major_elements",
+        "summarize_codebase",
+        "get"
+      ],
+      "fetch_metadata": [
+        "get"
+      ],
+      "fetch_code_snippet": [
+        "readlines",
+        "open",
+        "join"
+      ],
+      "execute_rag_flow": [
+        "create",
+        "info",
+        "join",
+        "HTTPException",
+        "str",
+        "format",
+        "strip",
+        "search_code",
+        "error"
+      ],
+      "generate_tests": [
+        "join",
+        "append",
+        "walk",
+        "parse",
+        "isinstance"
+      ],
+      "parse_error_context": [
+        "min",
+        "split",
+        "len",
+        "join",
+        "int",
+        "format_exc",
+        "str",
+        "max",
+        "group",
+        "search",
+        "error",
+        "print",
+        "min",
+        "split",
+        "len",
+        "join",
+        "int",
+        "max",
+        "group",
+        "search"
+      ],
+      "get_debug_plan": [
+        "len",
+        "join",
+        "debug",
+        "append",
+        "create",
+        "run",
+        "chr",
+        "split",
+        "SecurityError",
+        "parse_error_context",
+        "input",
+        "all",
+        "lower",
+        "get",
+        "isalnum",
+        "error",
+        "info",
+        "loads",
+        "clean_json",
+        "any",
+        "isinstance",
+        "print",
+        "create",
+        "info",
+        "str",
+        "loads",
+        "error",
+        "get",
+        "any",
+        "isinstance"
+      ],
+      "generate_code": [
+        "create",
+        "info",
+        "RuntimeError",
+        "format_exc",
+        "str",
+        "clean_code",
+        "error",
+        "print"
+      ],
+      "execute_code": [
+        "system",
+        "info",
+        "makedirs",
+        "run",
+        "join",
+        "write",
+        "abspath",
+        "warning",
+        "getcwd",
+        "dirname",
+        "exists",
+        "python_version",
+        "open"
+      ],
+      "test_simple": [],
+      "test_addition": [],
+      "sample_python_files": [
+        "write_text"
+      ],
+      "test_extract_metadata": [
+        "str",
+        "extract_metadata_from_file"
+      ],
+      "test_map_codebase": [
+        "all",
+        "set",
+        "len",
+        "str",
+        "basename",
+        "keys",
+        "map_codebase",
+        "values",
+        "isinstance"
+      ],
+      "test_map_codebase_ignores_files": [
+        "write_text",
+        "set",
+        "str",
+        "basename",
+        "keys",
+        "map_codebase"
+      ],
+      "clean_path": [
+        "replace"
+      ],
+      "clean_code": [
+        "SecurityError",
+        "any",
+        "strip",
+        "replace"
+      ],
+      "clean_json": [
+        "search",
+        "sub",
+        "group"
+      ],
+      "get_index_manager": [
+        "ValueError",
+        "info",
+        "IndexManager"
+      ],
+      "setup_logging": [
+        "makedirs",
+        "Formatter",
+        "StreamHandler",
+        "setFormatter",
+        "addHandler",
+        "setLevel",
+        "getLogger",
+        "RotatingFileHandler"
+      ],
+      "generate_embeddings": [
+        "create",
+        "info",
+        "array",
+        "format_exc",
+        "reshape",
+        "error",
+        "astype"
+      ],
+      "create_git_branch": [
+        "run"
+      ],
+      "search_code": [
+        "min",
+        "len",
+        "ValueError",
+        "get_index_manager",
+        "str",
+        "is_index_loaded",
+        "warning",
+        "append",
+        "search",
+        "get_metadata",
+        "generate_embeddings",
+        "error",
+        "float",
+        "enumerate"
+      ]
+    },
+    "dependency_graph": {
+      "argparse": [
+        "run_console.py"
+      ],
+      "json": [
+        "run_console.py",
+        "custom_mapper2.py",
+        "custom_mapper.py",
+        "custom_mapper.py",
+        "core/code_mapper.py",
+        "core/debugger.py",
+        "core/enhanced_debugger.py",
+        "core/concierge.py",
+        "core/error_handler.py",
+        "core/codebase_routes.py",
+        "core/codebase_manager.py",
+        "utils/index.py"
+      ],
+      "os": [
+        "run_console.py",
+        "conftest.py",
+        "custom_mapper2.py",
+        "custom_mapper.py",
+        "custom_mapper.py",
+        "main.py",
+        "core/code_mapper.py",
+        "core/modifier.py",
+        "core/generator.py",
+        "core/codebase_manager.py",
+        "core/executor.py",
+        "tests/test_custom_mapper.py",
+        "utils/config.py",
+        "utils/index.py",
+        "utils/logger.py",
+        "utils/embeddings.py",
+        "utils/search.py"
+      ],
+      "traceback": [
+        "run_console.py",
+        "custom_mapper2.py",
+        "main.py",
+        "core/modifier.py",
+        "core/debugger.py",
+        "core/generator.py",
+        "core/enhanced_debugger.py",
+        "core/codebase_manager.py",
+        "core/executor.py",
+        "utils/config.py",
+        "utils/index.py",
+        "utils/embeddings.py"
+      ],
+      "core.generator": [
+        "run_console.py",
+        "main.py"
+      ],
+      "core.executor": [
+        "run_console.py",
+        "main.py"
+      ],
+      "core.modifier": [
+        "run_console.py",
+        "main.py"
+      ],
+      "core.code_mapper": [
+        "run_console.py",
+        "main.py",
+        "core/enhanced_debugger.py",
+        "core/concierge.py",
+        "core/codebase_manager.py"
+      ],
+      "core.enhanced_debugger": [
+        "run_console.py",
+        "main.py"
+      ],
+      "core.version_control": [
+        "run_console.py",
+        "main.py"
+      ],
+      "utils.logger": [
+        "run_console.py",
+        "main.py",
+        "utils/config.py"
+      ],
+      "utils.config": [
+        "run_console.py",
+        "custom_mapper2.py",
+        "custom_mapper2.py",
+        "custom_mapper.py",
+        "main.py",
+        "main.py",
+        "core/code_mapper.py",
+        "core/modifier.py",
+        "core/debugger.py",
+        "core/generator.py",
+        "core/enhanced_debugger.py",
+        "core/enhanced_debugger.py",
+        "core/codebase_routes.py",
+        "core/codebase_manager.py",
+        "core/executor.py",
+        "core/executor.py",
+        "utils/sanitizer.py",
+        "utils/index.py",
+        "utils/index.py",
+        "utils/embeddings.py",
+        "utils/search.py"
+      ],
+      "sys": [
+        "conftest.py",
+        "custom_mapper2.py",
+        "core/debugger.py",
+        "core/enhanced_debugger.py",
+        "core/executor.py"
+      ],
+      "ast": [
+        "custom_mapper2.py",
+        "custom_mapper.py",
+        "custom_mapper.py",
+        "core/code_mapper.py",
+        "core/tester.py",
+        "core/modifier.py",
+        "core/codebase_manager.py"
+      ],
+      "hashlib": [
+        "custom_mapper2.py",
+        "custom_mapper.py",
+        "custom_mapper.py",
+        "core/code_mapper.py"
+      ],
+      "datetime": [
+        "custom_mapper2.py",
+        "custom_mapper.py",
+        "core/code_mapper.py",
+        "core/codebase_routes.py",
+        "core/codebase_manager.py",
+        "utils/index.py"
+      ],
+      "openai": [
+        "custom_mapper.py",
+        "main.py",
+        "core/modifier.py",
+        "core/generator.py",
+        "utils/config.py",
+        "utils/embeddings.py"
+      ],
+      "logging": [
+        "main.py",
+        "core/executor.py",
+        "utils/logger.py"
+      ],
+      "re": [
+        "main.py",
+        "core/debugger.py",
+        "core/enhanced_debugger.py",
+        "core/error_handler.py",
+        "core/executor.py",
+        "utils/sanitizer.py"
+      ],
+      "fastapi": [
+        "main.py",
+        "core/codebase_routes.py"
+      ],
+      "pydantic": [
+        "main.py",
+        "core/codebase_routes.py"
+      ],
+      "core.codebase_routes": [
+        "main.py"
+      ],
+      "fastapi.middleware.cors": [
+        "main.py"
+      ],
+      "fastapi.staticfiles": [
+        "main.py"
+      ],
+      "typing": [
+        "main.py",
+        "main.py",
+        "core/code_mapper.py",
+        "core/modifier.py",
+        "core/codebase_routes.py",
+        "core/codebase_manager.py",
+        "core/codebase_manager.py"
+      ],
+      "utils.search": [
+        "main.py",
+        "core/modifier.py"
+      ],
+      "utils.index": [
+        "main.py",
+        "core/codebase_manager.py",
+        "utils/search.py"
+      ],
+      "utils.sanitizer": [
+        "main.py",
+        "core/modifier.py",
+        "core/debugger.py",
+        "core/generator.py",
+        "core/enhanced_debugger.py",
+        "core/executor.py"
+      ],
+      "pathlib": [
+        "core/code_mapper.py",
+        "core/codebase_routes.py",
+        "core/codebase_manager.py"
+      ],
+      "dotenv": [
+        "core/modifier.py",
+        "utils/config.py"
+      ],
+      "dataclasses": [
+        "core/modifier.py"
+      ],
+      "subprocess": [
+        "core/debugger.py",
+        "core/version_control.py",
+        "core/enhanced_debugger.py",
+        "core/executor.py",
+        "utils/environment.py"
+      ],
+      "tempfile": [
+        "core/codebase_routes.py",
+        "core/codebase_manager.py"
+      ],
+      "shutil": [
+        "core/codebase_routes.py",
+        "core/codebase_manager.py"
+      ],
+      "fastapi.responses": [
+        "core/codebase_routes.py"
+      ],
+      "core.codebase_manager": [
+        "core/codebase_routes.py"
+      ],
+      "git": [
+        "core/codebase_manager.py",
+        "core/codebase_manager.py"
+      ],
+      "docker": [
+        "core/codebase_manager.py"
+      ],
+      "platform": [
+        "core/executor.py"
+      ],
+      "core.debugger": [
+        "core/executor.py"
+      ],
+      "pytest": [
+        "tests/test_basic.py",
+        "tests/test_custom_mapper.py"
+      ],
+      "custom_mapper": [
+        "tests/test_custom_mapper.py"
+      ],
+      "faiss": [
+        "utils/index.py"
+      ],
+      "numpy": [
+        "utils/index.py",
+        "utils/embeddings.py",
+        "utils/search.py"
+      ],
+      "time": [
+        "utils/index.py"
+      ],
+      "utils.embeddings": [
+        "utils/index.py",
+        "utils/search.py"
+      ],
+      "logging.handlers": [
+        "utils/logger.py"
+      ]
+    }
+  }
+}

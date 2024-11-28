@@ -1,3 +1,20 @@
+"""
+debugger.py
+
+This module contains the debugger functions for the API. It includes the parse_error_context function to extract relevant code context around the error line, and the get_debug_plan function to generate a structured debugging plan based on the error type.
+
+"""
+
+# Filestructure:
+# coder_v2/
+#   main.py
+#   static/
+#   logs/
+#   utils/
+#   core/
+
+# File: core/debugger.py
+
 import json
 import sys
 import traceback
